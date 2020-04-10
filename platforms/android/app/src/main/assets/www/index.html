@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Taxi Time</title>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">
+
+	</head>
+	<body>
+		<div id="splashscreen">
+			<div id="logo"></div>
+		</div>
+		<header>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="analyticsTitle">
+						<img src="./imgs/registrationLogo.png" alt="TxT">
+						<p>Сводная аналитика</p>
+					</div>
+				</div>
+			</div>
+		</header>	
+		<main>
+			<div class="container">
+				<div class="row flex-column align-items-center">		
+					<div class="row analyticsContainer">
+						<div class="analyticsBoxDiv">
+							<a href="./sign-in.html">
+								<div class="analyticsBox">
+									<div class="borderOrange">
+										<div class="borderOrange2">
+											<img src="./imgs/analytics1.png" alt="Агрегатор">
+										</div>
+									</div>
+									<p class="analyticsBoxHour">Заработок в час</p>
+									<div class="analyticsBoxTable">
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 250 ₽</p>
+											<p>Эконом</p>
+										</div>
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 350 ₽</p>
+											<p>Комфорт</p>
+										</div>
+									</div>
+									<hr>
+									<p class="analyticsBoxText">Яндекс.Такси</p>
+								</div>
+							</a>
+						</div>
+						<div class="analyticsBoxDiv">
+							<a href="./sign-in.html">
+								<div class="analyticsBox">
+									<div class="borderOrange">
+										<div class="borderOrange2">
+											<img src="./imgs/analytics2.png" alt="Агрегатор">
+										</div>
+									</div>
+									<p class="analyticsBoxHour">Заработок в час</p>
+									<div class="analyticsBoxTable">
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 300 ₽</p>
+											<p>Эконом</p>
+										</div>
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 500 ₽</p>
+											<p>Комфорт</p>
+										</div>
+									</div>
+									<hr>
+									<p class="analyticsBoxText">Bolt Driver</p>
+								</div>
+							</a>
+						</div>
+						<div class="analyticsBoxDiv">
+							<a href="./sign-in.html">
+								<div class="analyticsBox">
+									<div class="borderOrange">
+										<div class="borderOrange2">
+											<img src="./imgs/analytics3.png" alt="Агрегатор">
+										</div>
+									</div>
+									<p class="analyticsBoxHour">Заработок в час</p>
+									<div class="analyticsBoxTable">
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 500 ₽</p>
+											<p>Эконом</p>
+										</div>
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 700 ₽</p>
+											<p>Комфорт</p>
+										</div>
+									</div>
+									<hr>
+									<p class="analyticsBoxText">Ситимобил</p>
+								</div>
+							</a>
+						</div>
+						<div class="analyticsBoxDiv">
+							<a href="./sign-in.html">
+								<div class="analyticsBox">
+									<div class="borderOrange">
+										<div class="borderOrange2">
+											<img src="./imgs/analytics4.png" alt="Агрегатор">
+										</div>
+									</div>
+									<p class="analyticsBoxHour">Заработок в час</p>
+									<div class="analyticsBoxTable">
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 550 ₽</p>
+											<p>Эконом</p>
+										</div>
+										<div class="analyticsBoxTableRow">
+											<p class="value">до 750 ₽</p>
+											<p>Комфорт</p>
+										</div>
+									</div>
+									<hr>
+									<p class="analyticsBoxText">Gett Drivers</p>
+								</div>
+							</a>
+						</div>
+					</div>
+					<p class="analyticsChoose">*СРАВНИ И ВЫБЕРИ</p>
+					<div class="w-100 d-flex justify-content-center">
+						<a href="./sign-in.html">
+							<button class="analyticsBtn">Подробнее</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>  
+		<script src="./libs/jquery.min.js"></script>
+		<script src="./libs/bootstrap.min.js"></script>
+
+		<script src="./js/checkPage.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			var userdata = null;
+			try {
+				userdata = JSON.parse($store.getItem("userdata"))
+			} catch (e) {
+				console.log(e); 
+			}
+			
+			if(userdata != null) {
+				$store.setItem("currentPage", "profile.html");
+            	location.href = "./profile.html";
+			} else {
+				$store.setItem("currentPage", "index.html");
+			}
+		</script>
+
+		<script src="./js/splashscreen.js"></script>
+	</body>
+</html>
