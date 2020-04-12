@@ -276,6 +276,11 @@ input:focus {
 	height: 25px;
 }
 
+.checkboxWhiteDiv {
+	width: 14px;
+	height: 14px;
+}
+
 .numberCheakBox {
 	width: 25px;
 	height: 25px;
@@ -288,6 +293,16 @@ input:focus {
 
 .checkboxOff {
 	background: url("../imgs/numberCheckBoxOff.png") no-repeat;
+	background-size: contain;
+}
+
+.checkboxWhiteOn {
+	background: url("../imgs/numberCheckBoxWhiteOn.png") no-repeat;
+	background-size: contain;
+}
+
+.checkboxWhiteOff {
+	background: url("../imgs/numberCheckBoxWhiteOff.png") no-repeat;
 	background-size: contain;
 }
 
@@ -674,12 +689,14 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 }
 
 /* FS */
-.fs_15 {
-    font-size: 15px;
-}
-.fs_18 {
-    font-size: 18px;
-}
+.fs_10 {font-size: 10px}
+.fs_11 {font-size: 11px}
+.fs_12 {font-size: 12px !important}
+.fs_15 {font-size: 15px}
+.fs_15 {font-size: 15px}
+.fs_16 {font-size: 16px}
+.fs_18 {font-size: 18px}
+.fs_19 {font-size: 19px}
 
 .colorB4B0B0 {
     color: #B4B0B0;
@@ -961,4 +978,347 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 	width: 29px !important;
     height: 22px;
     transform: rotate(180deg);
+}
+
+/* 3 MODULE */
+.max-w-275 {
+    max-width: 275px;    
+}
+
+.back_to_homepage {
+	width: 24px !important;
+    height: 20px;
+}
+
+.back_search {
+    background-image: url(../imgs/agregator_search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.back_filter {
+    background-image: url(../imgs/agregator_filter.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.agregatorBox_name {
+    font-size: 15px;
+    font-family: "Montserrat Bold";
+    color: #FF8E16;
+    padding-left: 8px;
+}
+
+.agregatorBox_rating {
+    font-size: 12px;
+    font-family: "Montserrat Bold";
+    padding-right: 8px;
+}
+
+.agrBox_rateGreen, .agregatorFull_conditionsList li p span.green {color: #8DC63F}
+.agrBox_rateYellow {color: #EAD200}
+.agrBox_rateRed, .agregatorFull_conditionsList li p span.orange, .agreratorFull_parkAuto {color: #FF3743}
+
+.agregatorBox_conditions {
+    width: 57%;
+}
+
+.agregatorBox_agregators {
+    width: 37%;
+}
+
+.agregatorBox_title {
+    font-size: 12px;
+    font-family: "Montserrat Bold";
+    margin-left: 10px;
+}
+
+.agregatorBox_hr {
+    height: 1px;
+    background-color: #D4D4D4;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+ul {
+    list-style-type: none;
+    margin-bottom: 0;
+}
+
+.agregatorBox_conditions ul p {
+    font-size: 10px;
+}
+
+.agregatorBox_conditions ul p span {
+    font-size: 10px;
+    font-family: "Montserrat Bold";
+}
+
+.agregatorBox_conditions ul li {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.agreratorBox_supportImgs {
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding-left: 20px;
+    justify-content: space-between;
+    max-width: 170px;
+}
+
+.agreratorBox_supportImgs img {
+    width: 20px;
+    height: 20px;
+}
+
+.parkCar_Imgs {
+    margin-top: -5px;
+}
+
+.parkCar_Imgs img {
+    width: 14px;
+    height: 14px;
+    margin-left: 20px;
+}
+
+.agregatorBox_agregatorsList {
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.col30pr {
+    margin-bottom: 10px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.agregatorBox_agregatorsList img, .agregatorFull_agregatorsList img {
+    width: 24px;
+    height: 24px;
+}
+
+.agregatorFull_name {
+    font-size: 18px;
+    font-family: "Montserrat Bold";
+    color: #FF8E16;
+}
+
+.agregatorFull_decription {
+    font-size: 10px;
+    padding: 10px 30px;
+    padding-bottom: 5px;
+    text-align: center;
+    line-height: 14px;
+}
+
+.agregatorFull_agregatorsList {
+    width: 100%;
+    max-width: 180px;
+}
+
+.col20pr {
+    margin-bottom: 10px;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.agregatorFull_conditionsList li p {
+    font-size: 12px;
+    text-align: center;
+    line-height: 18px;
+}
+
+.agregatorFull_conditionsList li p span {
+    font-size: 12px;
+}
+
+.agregatorFull_conditionsList li p span.orange, .agreratorFull_parkAuto {
+    color: #FF8E16;
+}
+
+.modalThx_closeBtn {
+    width: 16px;
+    height: 16px;
+    background-image: url(../imgs/modal_close.png);
+    background-color: transparent;
+    position: absolute;
+    right: 15px;
+}
+
+.modalThx-dialog, .modalFilter-dialog {
+    position: relative;
+    width: auto;
+    margin: 1.5rem;
+    margin-top: 60%;
+    display: flex;
+    justify-content: center;
+    max-width: none;
+}
+
+.modalFilter-dialog {
+    margin-top: 20%;
+}
+
+.modalThx-content {
+    max-width: 326px;
+}
+
+.argeratorSearch_Cont {
+    margin-top: 20px;
+    width: 316px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    display: none;
+}
+
+.argeratorSearch_input {
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: solid 1px #C0C0C0;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 50px;
+}
+
+.argeratorSearch_Submit {
+    position: absolute;
+    right: 0;
+}
+
+.modalFilter_channelRow {
+    
+}
+
+.radioContainer {
+  display: block;
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radioContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  height: 11px;
+  width: 11px;
+  background-color: transparent;
+  border: solid 1px #FF8E16; 
+  border-radius: 50%;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radioContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radioContainer .checkmark:after {
+ 	top: 2px;
+	left: 2px;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: black;
+}
+
+
+/* WIDTH */
+.w-9 {width: 9px !important}
+.w-23 {width: 23px !important}
+.w-43 {width: 43px !important}
+.w-50 {width: 50px !important}
+.w-130 {width: 130px}
+.w-190 {width: 190px}
+/* HEIGHT */
+.h-10 {height: 10px}
+.h-29 {height: 29px}
+.h-35 {height: 35px}
+/* MARGIN */
+.mt-5 {margin-top: 5px !important}
+.mt-10 {margin-top: 10px}
+.mt-15 {margin-top: 15px}
+.mr-10 {margin-right: 10px}
+.mb-2 {margin-bottom: 2px !important}
+.mb-5 {margin-bottom: 5px !important}
+.mb-10 {margin-bottom: 10px}
+.mb-26 {margin-bottom: 26px}
+.mb-36 {margin-bottom: 36px}
+/* PADDING */
+.p-5 {padding: 5px !important}
+.p-10 {padding: 10px}
+.p-15 {padding: 15px}
+.pl-10 {padding-left: 10px}
+.pl-20 {padding-left: 20px}
+.pl-30 {padding-left: 30px}
+.pr-10 {padding-right: 10px}
+.pr-20 {padding-right: 20px}
+.pr-30 {padding-right: 30px}
+
+
+
+
+@media only screen and (max-width : 370px) {
+    .agregatorBox_agregatorsList {
+        padding-right: 0px;
+    }
+    .parkCar_Imgs img {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width : 350px) {
+    .w-20_350 {
+        width: 20px !important;
+    }
+    .argeratorSearch_Cont {
+        width: 280px !important;
+    }
+}
+
+@media only screen and (max-width : 345px) {
+    .value {
+        font-size: 10px !important;
+    }
+    .parkCar_Imgs img {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and (max-width : 340px) {
+    .w-120_340 {
+        width: 120px;
+    }
 }
