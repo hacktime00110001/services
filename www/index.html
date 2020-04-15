@@ -30,104 +30,7 @@
 		<main>
 			<div class="container">
 				<div class="row flex-column align-items-center">		
-					<div class="row analyticsContainer">
-						<div class="analyticsBoxDiv">
-							<a href="./sign-in.html">
-								<div class="analyticsBox">
-									<div class="borderOrange">
-										<div class="borderOrange2">
-											<img src="./imgs/analytics1.png" alt="Агрегатор">
-										</div>
-									</div>
-									<p class="analyticsBoxHour">Заработок в час</p>
-									<div class="analyticsBoxTable">
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 250 ₽</p>
-											<p>Эконом</p>
-										</div>
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 350 ₽</p>
-											<p>Комфорт</p>
-										</div>
-									</div>
-									<hr>
-									<p class="analyticsBoxText">Яндекс.Такси</p>
-								</div>
-							</a>
-						</div>
-						<div class="analyticsBoxDiv">
-							<a href="./sign-in.html">
-								<div class="analyticsBox">
-									<div class="borderOrange">
-										<div class="borderOrange2">
-											<img src="./imgs/analytics2.png" alt="Агрегатор">
-										</div>
-									</div>
-									<p class="analyticsBoxHour">Заработок в час</p>
-									<div class="analyticsBoxTable">
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 300 ₽</p>
-											<p>Эконом</p>
-										</div>
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 500 ₽</p>
-											<p>Комфорт</p>
-										</div>
-									</div>
-									<hr>
-									<p class="analyticsBoxText">Bolt Driver</p>
-								</div>
-							</a>
-						</div>
-						<div class="analyticsBoxDiv">
-							<a href="./sign-in.html">
-								<div class="analyticsBox">
-									<div class="borderOrange">
-										<div class="borderOrange2">
-											<img src="./imgs/analytics3.png" alt="Агрегатор">
-										</div>
-									</div>
-									<p class="analyticsBoxHour">Заработок в час</p>
-									<div class="analyticsBoxTable">
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 500 ₽</p>
-											<p>Эконом</p>
-										</div>
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 700 ₽</p>
-											<p>Комфорт</p>
-										</div>
-									</div>
-									<hr>
-									<p class="analyticsBoxText">Ситимобил</p>
-								</div>
-							</a>
-						</div>
-						<div class="analyticsBoxDiv">
-							<a href="./sign-in.html">
-								<div class="analyticsBox">
-									<div class="borderOrange">
-										<div class="borderOrange2">
-											<img src="./imgs/analytics4.png" alt="Агрегатор">
-										</div>
-									</div>
-									<p class="analyticsBoxHour">Заработок в час</p>
-									<div class="analyticsBoxTable">
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 550 ₽</p>
-											<p>Эконом</p>
-										</div>
-										<div class="analyticsBoxTableRow">
-											<p class="value">до 750 ₽</p>
-											<p>Комфорт</p>
-										</div>
-									</div>
-									<hr>
-									<p class="analyticsBoxText">Gett Drivers</p>
-								</div>
-							</a>
-						</div>
-					</div>
+					<div class="row analyticsContainer" id="analyticsContainer"></div>
 					<p class="analyticsChoose">*СРАВНИ И ВЫБЕРИ</p>
 					<div class="w-100 d-flex justify-content-center">
 						<a href="./sign-in.html">
@@ -156,6 +59,24 @@
 			} else {
 				$store.setItem("currentPage", "index.html");
 			}
+		</script>
+
+			<script type="text/javascript" src="./js/modal.js"></script>
+
+		<script type="text/javascript">
+		    $store = localStorage;
+
+			$.post("http://t.com/", { 
+				getFullAgregators: true
+			}).done(function (data) {
+				var userdata = JSON.parse(data);
+				$content = $("#analyticsContainer");
+				for(i = 0; i < userdata.length; i++)
+					$content.append('<div class="analyticsBoxDiv"><a href="sign-in.html"><div class="analyticsBox"><div class="borderOrange"><div class="borderOrange2"><img src="'+userdata[i].logo_url+'" alt="Агрегатор"></div></div><p class="analyticsBoxHour">Заработок в час</p><div class="analyticsBoxTable"><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].economy_price+' ₽</p><p>Эконом</p></div><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].comfort_price+' ₽</p><p>Комфорт</p></div></div><hr><p class="analyticsBoxText">'+userdata[i].name+'</p></div></a></div>');
+
+		    }).fail(function(xhr, textStatus, error) {
+				modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+			});
 		</script>
 
 		<script src="./js/splashscreen.js"></script>
