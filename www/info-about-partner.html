@@ -56,7 +56,7 @@
                             <p class="fw_bold mb-10">Агрегаторы</p>
                             <div class="row agregatorFull_agregatorsList" id="agregatorBox_agregatorsList"></div>
                             <p class="fw_bold mt-15 mb-10">Условия работы</p>
-                            <ul class="agregatorFull_conditionsList pl-20 pr-20" id="work_cond"></ul>
+                            <ul class="agregatorFull_decription pl-20 pr-20" id="work_cond"></ul>
                             <p class="fw_bold mt-15 mb-10">Каналы тех. поддержки:</p>
                             <div class="agreratorBox_supportImgs pl-0 mt-0" id="support_channels" style="justify-content: center;"></div>
                             <p class="fw_bold mt-15 mb-10">Парковые автомобили:</p>
@@ -108,9 +108,7 @@
                 $agregatorsContent.append("<div class='col20pr'><img src='"+partnerData[1][0][1].some_info_agregators[j].logo_url+"' alt='"+partnerData[1][0][1].some_info_agregators[j].name+"'></div>");
             
             $workCondContent = $("#work_cond");
-            $workCondData = partnerData[1][0].work_condition.split(";").filter(a => a.trim() != "");
-            for(j = 0; j < $workCondData.length; j++)
-                $workCondContent.append('<li><p><img class="w-9 h-10 mr-10 mb-2" src="./imgs/agreratorBox_li.png" alt="&#10004;">'+$workCondData[j].trim()+'</p></li>');
+            $workCondContent.append(partnerData[1][0].work_condition);
 
             $chanelsContent = $("#support_channels");
             for(j = 0; j < partnerData[1][0][0].support_channels.length; j++)

@@ -304,7 +304,7 @@ input[type="text"] {
 
 .numberBox p {
 	position: absolute;
-    width: 80%;
+	width: 80%;
 	font: 13px "Montserrat Regular";
 	margin: 4px 0 0 0;
 	text-align: justify;
@@ -521,7 +521,7 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .analyticsBox hr {
 	width: 75%;
 	margin: 6px 0px 6px 0px;
-    background-color: #333333;
+	background-color: #333333;
 }
 
 .borderOrange {
@@ -553,8 +553,8 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .analyticsBoxTable {
 	width: 80%;
 	flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .analyticsBoxTableRow {
@@ -567,8 +567,8 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .analyticsBoxTableRow p {
 	font: 12px "Montserrat Regular";
 	display: flex;
-    flex-direction: row;
-    align-items: center;
+	flex-direction: row;
+	align-items: center;
 }
 
 .analyticsBoxHr {
@@ -674,15 +674,15 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 }
 
 .fw_regular {
-    font-family: "Montserrat Regular";
+	font-family: "Montserrat Regular";
 }
 
 .fw_medium {
-    font-family: "Montserrat Medium";
+	font-family: "Montserrat Medium";
 }
 
 .fw_bold {
-    font-family: "Montserrat Bold";
+	font-family: "Montserrat Bold";
 }
 
 /* FS */
@@ -696,320 +696,320 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .fs_19 {font-size: 19px}
 
 .colorB4B0B0 {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .driverProfile_Header {
-    width: 100vw !important;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #F2E8DD;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
-    box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
-    max-width: 500px;
-    min-height: 60px;
+	width: 100vw !important;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	background-color: #F2E8DD;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
+	box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
+	max-width: 500px;
+	min-height: 60px;
 }
 
 .checkCard_Alert {
-    width: 272px;
-    padding: 12px 30px;
-    background-color: #28A745;
-    text-align: center;
-    border-radius: 5px;
-    margin-top: 30px;
+	width: 272px;
+	padding: 12px 30px;
+	background-color: #28A745;
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 30px;
 }
 
 .checkCard_Alert p {
-    color: white;
-    font-size: 13px;
-    line-height: 17px;
+	color: white;
+	font-size: 13px;
+	line-height: 17px;
 }
 
 .driverProfile_Card {
-    margin-top: 12px;
-    width: 272px;
-    height: 171px;
-    background-image: url("../imgs/card.png");
+	margin-top: 12px;
+	width: 272px;
+	height: 171px;
+	background-image: url("../imgs/card.png");
 }
 
 .driverProfile_Info {
-    width: 272px;
+	width: 272px;
 }
 
 .driverProfile_Info ul {
-    list-style-type: none;
-    margin-top: 37px;
+	list-style-type: none;
+	margin-top: 37px;
 }
 
 .driverProfile_Info ul li {
-    font-size: 13px;
-    margin-top: 17px;
+	font-size: 13px;
+	margin-top: 17px;
 }
 
 .driverProfile_Info ul li span {
-    font-size: 13px;
-    font-family: "Montserrat Bold";
+	font-size: 13px;
+	font-family: "Montserrat Bold";
 }
 
 .driverProfile_SupportService {
-    width: 95%;
-    max-width: 313px;
-    border-radius: 5px;
-    background-color: #f8eac1;
-    border: solid 1px #FFC107;
-    display: flex;
-    align-items: center;
-    padding: 8px 13px;
-    margin-top: 17px;
+	width: 95%;
+	max-width: 313px;
+	border-radius: 5px;
+	background-color: #f8eac1;
+	border: solid 1px #FFC107;
+	display: flex;
+	align-items: center;
+	padding: 8px 13px;
+	margin-top: 17px;
 }
 
 .driverProfile_SupportService p {
-    font-size: 11px;
-    line-height: 15px;
+	font-size: 11px;
+	line-height: 15px;
 }
 
 .driverProfile_SupportService img {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .driverProfile_SupportService p span {
-    font-size: 11px;
-    line-height: 15px;
-    color: #007BFF;
-    text-decoration: underline;
+	font-size: 11px;
+	line-height: 15px;
+	color: #007BFF;
+	text-decoration: underline;
 }
 
 .driverProfile_OrangeBtn {
-    width: 95%;
-    max-width: 313px;
-    background-color: #FF8E16;
-    border: none;
-    border-radius: 5px;
-    font-size: 15px;
-    color: white;
-    font-family: "Montserrat Bold";
-    padding: 10px;
-    margin-top: 25px;
-    margin-bottom: 60px;
+	width: 95%;
+	max-width: 313px;
+	background-color: #FF8E16;
+	border: none;
+	border-radius: 5px;
+	font-size: 15px;
+	color: white;
+	font-family: "Montserrat Bold";
+	padding: 10px;
+	margin-top: 25px;
+	margin-bottom: 60px;
 }
 
 .driverProfile_OrangeBtn:hover {
-    background-color: #D57713;
+	background-color: #D57713;
 }
 
 /* ADD */
 .addProfile_Card {
-    margin-top: 12px;
-    width: 272px;
-    height: 171px;
-    background-image: url("../imgs/card.png"); 
+	margin-top: 12px;
+	width: 272px;
+	height: 171px;
+	background-image: url("../imgs/card.png"); 
 }
 
 .addProfile_CardBlack {
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.7;
-    display: flex;
-    align-items: flex-end;
-    border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.7;
+	display: flex;
+	align-items: flex-end;
+	border-radius: 10px;
 }
 
 .addProfile_CardLight {
-    width: 100%;
-    height: 40%;
-    background-color: white;
+	width: 100%;
+	height: 40%;
+	background-color: white;
 }
 
 .addProfile_Card p {
-    font-size: 10px;
-    line-height: 14px;
-    font-family: "Montserrat Bold";
-    margin-top: -55px;
-    text-align: center;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+	font-size: 10px;
+	line-height: 14px;
+	font-family: "Montserrat Bold";
+	margin-top: -55px;
+	text-align: center;
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 }
 
 .addProfile_Form {
-    width: 95%;
-    max-width: 313px;
-    margin-left: auto;
-    margin-right: auto;
+	width: 95%;
+	max-width: 313px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .addProfile_Input {
-    width: 100%;
-    max-width: 313px;
-    border-radius: 5px;
-    border: solid 2px #FF8E16; 
-    padding: 7px 12px 7px 12px;
-    margin-top: 15px;
-    background-color: transparent;
+	width: 100%;
+	max-width: 313px;
+	border-radius: 5px;
+	border: solid 2px #FF8E16; 
+	padding: 7px 12px 7px 12px;
+	margin-top: 15px;
+	background-color: transparent;
 }
 
 .addProfile_Input::placeholder {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .posRel {
-    position: relative;
+	position: relative;
 }
 
 .op-0-0 {opacity: 0;}
 
 .posRel select {
-    position: relative;
-    z-index: 9;
-    height: 35px;
-    border: solid 1px #a5a5a5;
-    border-radius: 5px;
-    margin-top: 18px;
+	position: relative;
+	z-index: 9;
+	height: 35px;
+	border: solid 1px #a5a5a5;
+	border-radius: 5px;
+	margin-top: 18px;
 }
 
 .dropdowmMy {
-    width: 100%;
-    border-radius: 5px;
-    border: solid 2px #FF8E16; 
-    padding: 7px 12px 7px 12px;
-    background-color: transparent;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    top: 0px;
-    z-index: 0;
+	width: 100%;
+	border-radius: 5px;
+	border: solid 2px #FF8E16; 
+	padding: 7px 12px 7px 12px;
+	background-color: transparent;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	top: 0px;
+	z-index: 0;
 }
 
 .dropdowmMy img {
 	width: 12px;
-    height: 8px;
+	height: 8px;
 }
 
 .transf {
-    transform: rotate(180deg);
-    transition: 0.2s;
+	transform: rotate(180deg);
+	transition: 0.2s;
 }
 
 .addProfile_Hr {
-    width: 100%;
-    height: 1px;
-    margin-top: 18px;
-    margin-bottom: 10px;
-    background-color: #333333;
+	width: 100%;
+	height: 1px;
+	margin-top: 18px;
+	margin-bottom: 10px;
+	background-color: #333333;
 }
 
 .addProfile_Input_Small {
-    width: 50px;
-    border-radius: 5px;
-    border: solid 2px #FF8E16; 
-    padding: 7px 12px 7px 12px;
-    margin-top: 5px;
-    text-align: center;
-    background-color: transparent;
+	width: 50px;
+	border-radius: 5px;
+	border: solid 2px #FF8E16; 
+	padding: 7px 12px 7px 12px;
+	margin-top: 5px;
+	text-align: center;
+	background-color: transparent;
 }
 
 .addProfile_Input_Small::placeholder {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .addProfile_Input_Date {
-    width: 100%;
-    max-width: 313px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+	width: 100%;
+	max-width: 313px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
 }
 
 .addProfile_Input_Date1 {
-    width: 50px;
-    border-radius: 5px;
-    border: solid 2px #FF8E16; 
-    padding: 7px 12px 7px 12px;
-    margin-top: 5px;
-    text-align: center;
-    background-color: transparent;
+	width: 50px;
+	border-radius: 5px;
+	border: solid 2px #FF8E16; 
+	padding: 7px 12px 7px 12px;
+	margin-top: 5px;
+	text-align: center;
+	background-color: transparent;
 }
 
 .addProfile_Input_Date1::placeholder {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .addProfile_Input_Date2 {
-    width: 50%;
+	width: 50%;
 }
 
 .selectEvent_Date {
-    max-height: 200px;
-    overflow-y: scroll !important;
+	max-height: 200px;
+	overflow-y: scroll !important;
 }
 
 .addProfile_Input_Date2::placeholder {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .m-t-5 {
-    margin-top: 5px !important;
+	margin-top: 5px !important;
 }
 
 .addProfile_Input_Date3 {
-    width: 70px;
-    border-radius: 5px;
-    border: solid 2px #FF8E16; 
-    padding: 7px 12px 7px 12px;
-    margin-top: 5px;
-    text-align: center;
-    background-color: transparent;
+	width: 70px;
+	border-radius: 5px;
+	border: solid 2px #FF8E16; 
+	padding: 7px 12px 7px 12px;
+	margin-top: 5px;
+	text-align: center;
+	background-color: transparent;
 }
 
 .addProfile_Input_Date3::placeholder {
-    color: #B4B0B0;
+	color: #B4B0B0;
 }
 
 .back_support {
 	width: 29px !important;
-    height: 22px;
-    transform: rotate(180deg);
+	height: 22px;
+	transform: rotate(180deg);
 }
 
 /* 3 MODULE */
 .max-w-275 {
-    max-width: 275px;    
+	max-width: 275px;    
 }
 
 .back_to_homepage {
 	width: 24px !important;
-    height: 20px;
+	height: 20px;
 }
 
 .back_search {
-    background-image: url(../imgs/agregator_search.png);
-    background-repeat: no-repeat;
-    background-position: center;
+	background-image: url(../imgs/agregator_search.png);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .back_filter {
-    background-image: url(../imgs/agregator_filter.png);
-    background-repeat: no-repeat;
-    background-position: center;
+	background-image: url(../imgs/agregator_filter.png);
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .agregatorBox_name {
-    font-size: 15px;
-    font-family: "Montserrat Bold";
-    color: #FF8E16;
-    padding-left: 8px;
+	font-size: 15px;
+	font-family: "Montserrat Bold";
+	color: #FF8E16;
+	padding-left: 8px;
 }
 
 .agregatorBox_rating, .agregatorBox_rating span {
-    font-size: 12px;
-    font-family: "Montserrat Bold";
-    padding-right: 8px;
+	font-size: 12px;
+	font-family: "Montserrat Bold";
+	padding-right: 8px;
 }
 .agregatorBox_rating span { color: inherit; }
 
@@ -1018,61 +1018,61 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .agrBox_rateRed, .agregatorFull_conditionsList li p span.orange, .agreratorFull_parkAuto {color: #FF3743}
 
 .agregatorBox_conditions {
-    width: 57%;
+	width: 57%;
 }
 
 .agregatorBox_agregators {
-    width: 37%;
+	width: 37%;
 }
 
 .agregatorBox_title {
-    font-size: 12px;
-    font-family: "Montserrat Bold";
-    margin-left: 10px;
+	font-size: 12px;
+	font-family: "Montserrat Bold";
+	margin-left: 10px;
 }
 
 .agregatorBox_hr {
-    height: 1px;
-    background-color: #D4D4D4;
-    margin-top: 6px;
-    margin-bottom: 6px;
+	height: 1px;
+	background-color: #D4D4D4;
+	margin-top: 6px;
+	margin-bottom: 6px;
 }
 
 ul {
-    list-style-type: none;
-    margin-bottom: 0;
+	list-style-type: none;
+	margin-bottom: 0;
 }
 
 .agregatorBox_conditions ul p {
-    font-size: 10px;
+	font-size: 10px;
 }
 
 .agregatorBox_conditions ul p span {
-    font-size: 10px;
-    font-family: "Montserrat Bold";
+	font-size: 10px;
+	font-family: "Montserrat Bold";
 }
 
 .agregatorBox_conditions ul li {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: flex-start;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: flex;
+	align-items: flex-start;
 }
 
 .agreratorBox_supportImgs {
-    display: flex;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    width: 100%;
-    padding-left: 20px;
-    max-width: 170px;
-    justify-content: left;
+	display: flex;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	width: 100%;
+	padding-left: 20px;
+	max-width: 170px;
+	justify-content: left;
 }
 
 .agreratorBox_supportImgs img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	margin-right: 5px;
 }
 
 .parkCar_Imgs {
@@ -1080,125 +1080,127 @@ ul {
 }
 
 .parkCar_Imgs img {
-    width: 14px;
-    height: 14px;
-    margin-left: 20px;
+	width: 14px;
+	height: 14px;
+	margin-left: 20px;
 }
 
 .agregatorBox_agregatorsList {
-    padding-left: 20px;
-    padding-right: 10px;
+	padding-left: 20px;
+	padding-right: 10px;
 }
 
 .col30pr {
-    margin-bottom: 10px;
-    width: 30%;
-    display: flex;
-    justify-content: center;
+	margin-bottom: 10px;
+	width: 30%;
+	display: flex;
+	justify-content: center;
 }
 
 .agregatorBox_agregatorsList img, .agregatorFull_agregatorsList img {
-    width: 24px;
-    height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .agregatorFull_name {
-    font-size: 18px;
-    font-family: "Montserrat Bold";
-    color: #FF8E16;
+	font-size: 18px;
+	font-family: "Montserrat Bold";
+	color: #FF8E16;
 }
 
 .agregatorFull_decription {
-    font-size: 10px;
-    padding: 10px 30px;
-    padding-bottom: 5px;
-    text-align: justify;
-    line-height: 14px;
+	font-size: 10px;
+	padding: 10px 30px;
+	padding-bottom: 5px;
+	text-align: justify;
+	line-height: 14px;
 }
 
 .agregatorFull_agregatorsList {
-    width: 100%;
-    max-width: 180px;
-    justify-content: center;
+	width: 100%;
+	max-width: 180px;
+	justify-content: center;
 }
 
 .col20pr {
-    margin-bottom: 10px;
-    width: 20%;
-    display: flex;
-    justify-content: center;
+	margin-bottom: 10px;
+	width: 20%;
+	display: flex;
+	justify-content: center;
 }
 
 .agregatorFull_conditionsList li p {
-    font-size: 12px;
-    text-align: center;
-    line-height: 18px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 18px;
 }
 
 .agregatorFull_conditionsList li p span {
-    font-size: 12px;
+	font-size: 12px;
 }
 
 .agregatorFull_conditionsList li p span.orange, .agreratorFull_parkAuto {
-    color: #FF8E16;
+	color: #FF8E16;
 }
 
 .modalThx_closeBtn {
-    width: 16px;
-    height: 16px;
-    background-image: url(../imgs/modal_close.png);
-    background-color: transparent;
-    position: absolute;
-    right: 15px;
+	width: 18px;
+	height: 18px;
+	background-image: url(../imgs/parkCar_no.png);
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 18px 18px;
+	position: absolute;
+	right: 15px;
 }
 
 .modalThx-dialog, .modalFilter-dialog {
-    position: relative;
-    width: auto;
-    margin: 1.5rem;
-    margin-top: 60%;
-    display: flex;
-    justify-content: center;
-    max-width: none;
+	position: relative;
+	width: auto;
+	margin: 1.5rem;
+	margin-top: 60%;
+	display: flex;
+	justify-content: center;
+	max-width: none;
 }
 
 .modalFilter-dialog {
-    margin-top: 20%;
+	margin-top: 20%;
 }
 
 .modalThx-content {
-    max-width: 326px;
-   	border-radius: 10px;
+	max-width: 326px;
+	border-radius: 10px;
 }
 
 .argeratorSearch_Cont {
-    margin-top: 20px;
-    width: 316px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    display: none;
+	margin-top: 20px;
+	width: 316px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	display: none;
 }
 
 .argeratorSearch_input {
-    width: 100%;
-    height: 40px;
-    background-color: transparent;
-    border: solid 1px #C0C0C0;
-    border-radius: 5px;
-    padding-left: 10px;
-    padding-right: 50px;
+	width: 100%;
+	height: 40px;
+	background-color: transparent;
+	border: solid 1px #C0C0C0;
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 50px;
 }
 
 .argeratorSearch_Submit {
-    position: absolute;
-    right: 0;
+	position: absolute;
+	right: 0;
 }
 
 .modalFilter_channelRow {
-    
+	
 }
 
 .radioContainer {
@@ -1247,7 +1249,7 @@ ul {
 
 /* Style the indicator (dot/circle) */
 .radioContainer .checkmark:after {
- 	top: 2px;
+	top: 2px;
 	left: 2px;
 	width: 5px;
 	height: 5px;
@@ -1292,34 +1294,34 @@ ul {
 
 
 @media only screen and (max-width : 370px) {
-    .agregatorBox_agregatorsList {
-        padding-right: 0px;
-    }
-    .parkCar_Imgs img {
-        margin-left: 10px;
-    }
+	.agregatorBox_agregatorsList {
+		padding-right: 0px;
+	}
+	.parkCar_Imgs img {
+		margin-left: 10px;
+	}
 }
 
 @media only screen and (max-width : 350px) {
-    .w-20_350 {
-        width: 20px !important;
-    }
-    .argeratorSearch_Cont {
-        width: 280px !important;
-    }
+	.w-20_350 {
+		width: 20px !important;
+	}
+	.argeratorSearch_Cont {
+		width: 280px !important;
+	}
 }
 
 @media only screen and (max-width : 345px) {
-    .value {
-        font-size: 10px !important;
-    }
-    .parkCar_Imgs img {
-        margin-left: 5px;
-    }
+	.value {
+		font-size: 10px !important;
+	}
+	.parkCar_Imgs img {
+		margin-left: 5px;
+	}
 }
 
 @media only screen and (max-width : 340px) {
-    .w-120_340 {
-        width: 120px;
-    }
+	.w-120_340 {
+		width: 120px;
+	}
 }
