@@ -47,7 +47,7 @@
                 <div class="row w-100 p-15">
                     <div class="w-100 p-5">
                         <div class="analyticsBox">
-                            <div class="agregatorBox_name mt-10 mb-10" id="title_of_partner"></div>
+                            <div class="agregatorBox_name mt-10 mb-10" id="title_of_partner" style="padding-left: 0;"></div>
                             <p class="agregatorBox_rating" style="padding-right:0;">Рейтинг: <span id="reting" style="padding-right:0;">4.5</span></p>
                             <div class="w-190 agregatorBox_hr mt-10 mb-10"></div>
                             <p class="fw_bold">Краткое описание</p>
@@ -58,8 +58,8 @@
                             <p class="fw_bold mt-15 mb-10">Условия работы</p>
                             <ul class="agregatorFull_conditionsList pl-20 pr-20" id="work_cond"></ul>
                             <p class="fw_bold mt-15 mb-10">Каналы тех. поддержки:</p>
-                            <div class="agreratorBox_supportImgs pl-0 mt-0" id="support_channels"></div>
-                            <p class="fw_bold mt-15 mb-10">Парковые авто:</p>
+                            <div class="agreratorBox_supportImgs pl-0 mt-0" id="support_channels" style="justify-content: center;"></div>
+                            <p class="fw_bold mt-15 mb-10">Парковые автомобили:</p>
                             <p class="agreratorFull_parkAuto fs_12 pl-30 pr-30" id="park_car_content"></p>
                             <input type="button" class="driverProfile_OrangeBtn max-w-275 mb-5" value="Подключиться" data-toggle="modal" data-target="#modalThx">
                         </div>
@@ -121,9 +121,9 @@
             if($parkCarData[0] != "none") {
                 for(j = 0; j < $parkCarData.length; j++) {
                     if(j != $parkCarData.length - 1)
-                        $parkCarContent.append($parkCarData[j]+'<span>, </span>');
+                        $parkCarContent.append("<span>Марка </span> "+$parkCarData[j]+'<span>, </span>');
                     else 
-                        $parkCarContent.append($parkCarData[j]);
+                        $parkCarContent.append("<span>Марка </span> "+$parkCarData[j]);
                 }
             } else {
                 $parkCarContent.append("Отсутствуют");
@@ -141,19 +141,14 @@
             $high = "agrBox_rateGreen";
             $medium = "agrBox_rateYellow";
             $low = "agrBox_rateRed";
-
-            $retingsBlock = document.querySelectorAll(".reting");
-            $parents = document.querySelectorAll(".agregatorBox_rating");
             
-            for(q = 0; q < $retingsBlock.length; q++) {
-                $reting = parseFloat($retingsBlock[q].innerHTML);
-                if($reting >= 4.5 && $reting <= 5.0)
-                    $parents[q].classList.add($high);
-                else if($reting >= 4.0 && $reting < 4.5)
-                    $parents[q].classList.add($medium);
-                else 
-                    $parents[q].classList.add($low);
-            }
+            $reting = parseFloat($("#reting").text());
+            if($reting >= 4.5 && $reting <= 5.0)
+                $(".agregatorBox_rating").addClass($high);
+            else if($reting >= 4.0 && $reting < 4.5)
+                $(".agregatorBox_rating").addClass($medium);
+            else 
+                $(".agregatorBox_rating").addClass($low);
         }
 
     </script>

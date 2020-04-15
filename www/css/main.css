@@ -1066,7 +1066,7 @@ ul {
     width: 100%;
     padding-left: 20px;
     max-width: 170px;
-    justify-content: center;
+    justify-content: left;
 }
 
 .agreratorBox_supportImgs img {
@@ -1168,6 +1168,7 @@ ul {
 
 .modalThx-content {
     max-width: 326px;
+   	border-radius: 10px;
 }
 
 .argeratorSearch_Cont {
