@@ -92,7 +92,7 @@
     <script>
         $store = localStorage;
 
-        $.post("http://t.com/", { 
+        $.post("http://taxitime.pro/api/MainData.php", { 
             getInfoAboutPartner: $store.getItem("lastVisitPartner"),
             agregastorId: $store.getItem("lastVisitAgregator")
         }).done(function (data) {
@@ -142,13 +142,18 @@
             $medium = "agrBox_rateYellow";
             $low = "agrBox_rateRed";
 
-            $reting = parseFloat($("#reting").text());
-            if($reting >= 4.5 && $reting <= 5.0)
-                $(".agregatorBox_rating").addClass($high);
-            else if($reting >= 4.0 && $reting < 4.5)
-                 $(".agregatorBox_rating").addClass($medium);
-            else 
-                 $(".agregatorBox_rating").addClass($low);
+            $retingsBlock = document.querySelectorAll(".reting");
+            $parents = document.querySelectorAll(".agregatorBox_rating");
+            
+            for(q = 0; q < $retingsBlock.length; q++) {
+                $reting = parseFloat($retingsBlock[q].innerHTML);
+                if($reting >= 4.5 && $reting <= 5.0)
+                    $parents[q].classList.add($high);
+                else if($reting >= 4.0 && $reting < 4.5)
+                    $parents[q].classList.add($medium);
+                else 
+                    $parents[q].classList.add($low);
+            }
         }
 
     </script>

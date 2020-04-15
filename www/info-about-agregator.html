@@ -247,7 +247,7 @@
 	<script>
 		$store = localStorage;
 
-		$.post("http://t.com/", { 
+		$.post("http://taxitime.pro/api/MainData.php", { 
 			getInfoAboutAgregator: $store.getItem("lastVisitAgregator")
 		}).done(function (data) {
 			var agregatordata = JSON.parse(data);

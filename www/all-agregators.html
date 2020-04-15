@@ -57,7 +57,7 @@
 	<script type="text/javascript">
         $store = localStorage;
 
-		$.post("http://t.com/", { 
+		$.post("http://taxitime.pro/api/MainData.php", { 
 			getFullAgregators: true
 		}).done(function (data) {
 			var userdata = JSON.parse(data);
