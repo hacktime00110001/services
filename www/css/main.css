@@ -694,6 +694,7 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .fs_16 {font-size: 16px}
 .fs_18 {font-size: 18px}
 .fs_19 {font-size: 19px}
+.fs_20 {font-size: 14px !important}
 
 .colorB4B0B0 {
 	color: #B4B0B0;
@@ -1077,6 +1078,7 @@ ul {
 
 .parkCar_Imgs {
    margin-top: -5px;
+    padding-top: 10px;
 }
 
 .parkCar_Imgs img {
@@ -1257,12 +1259,20 @@ ul {
 	background: black;
 }
 
+.park_auto_text {
+    width: 30px !important;
+}
+
+.agregatorBox_rating {
+    text-shadow: 0px 0px 1px #333333;
+}
 
 /* WIDTH */
 .w-9 {width: 9px !important}
 .w-23 {width: 23px !important}
 .w-43 {width: 43px !important}
 .w-50 {width: 50px !important}
+.w-60 {width: 60px !important}
 .w-130 {width: 130px}
 .w-190 {width: 190px}
 /* HEIGHT */
@@ -1270,6 +1280,7 @@ ul {
 .h-29 {height: 29px}
 .h-35 {height: 35px}
 /* MARGIN */
+.mt-3 {margin-top: 3px !important}
 .mt-5 {margin-top: 5px !important}
 .mt-10 {margin-top: 10px}
 .mt-15 {margin-top: 15px}
@@ -1297,9 +1308,6 @@ ul {
 	.agregatorBox_agregatorsList {
 		padding-right: 0px;
 	}
-	.parkCar_Imgs img {
-		margin-left: 10px;
-	}
 }
 
 @media only screen and (max-width : 350px) {
@@ -1314,9 +1322,6 @@ ul {
 @media only screen and (max-width : 345px) {
 	.value {
 		font-size: 10px !important;
-	}
-	.parkCar_Imgs img {
-		margin-left: 5px;
 	}
 }
 
