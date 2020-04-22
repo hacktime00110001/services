@@ -51,9 +51,12 @@
 				</div>
 				<div class="w-100 d-flex justify-content-center">
 					<form id="agregatorSearchContainer" class="argeratorSearch_Cont" method="post">
-						<input class="argeratorSearch_input" type="text" placeholder="Поиск партнера">
-						<input value type="submit" class="argeratorSearch_Submit driverProfile_OrangeBtn w-43 mb-0 mt-0 back_search">
+						<input class="argeratorSearch_input" type="text" placeholder="Поиск партнера" id="search">
+						<input value type="button" class="argeratorSearch_Submit driverProfile_OrangeBtn w-43 mb-0 mt-0 back_search" id="searchSub">
 					</form>
+				</div>
+				<div class="row w-100 search_result">
+					<p>По Вашему запросу найдено <b id="count-of-record">#</b> партнёров</p>
 				</div>
 				<div class="row w-100 p-15" id="contentPartners"></div>
 				<input onclick="window.location.href='homepage.html'" type="button" class="driverProfile_OrangeBtn max-w-275 mt-15 mb-26" value="Назад">
@@ -255,6 +258,7 @@
 	<script>
 		$store = localStorage;
 
+
 		$.post("http://taxitime.pro/api/MainData.php", { 
 			getInfoAboutAgregator: $store.getItem("lastVisitAgregator")
 		}).done(function (data) {
@@ -344,6 +348,65 @@
 			$("input[type='checkbox']").parent().removeClass("checkboxWhiteOff");
 			$("input[type='checkbox']").parent().addClass("checkboxWhiteOn");
 			$("input[type='checkbox']").prop("checked", true);
+		});
+	</script>
+
+	<script type="text/javascript">
+		$("#searchSub").click(function () {
+			var searchRessultDiv = $(".search_result");
+			var countOfRecordComponent = $("#count-of-record");
+			var contentDiv = $("#contentPartners");
+			var inputSearchData = $("#search").val();
+
+			$.post("http://taxitime.pro/api/MainData.php", { 
+				searchData: inputSearchData,
+				agregatorId: $store.getItem("lastVisitAgregator")
+			}).done(function (data) {
+				contentDiv.html("");
+
+				searchRessultDiv.css("display", "block");
+
+				var searchResultData = JSON.parse(data);
+
+				searchRessultDiv.html('<p>По Вашему запросу найдено <b id="count-of-record">#</b> партнёров</p>');
+				countOfRecordComponent = $("#count-of-record");
+
+				countOfRecordComponent.html(searchResultData[0].length);
+
+				if(searchResultData[0].length != 0) { 
+					for(i = 0; i < searchResultData[0].length; i++) {
+						contentDiv.append('<div class="w-100 p-5"><a href="./info-about-partner.html" data-parnter-id='+searchResultData[0][i].id+'><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+searchResultData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+searchResultData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+searchResultData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+searchResultData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+i+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+i+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+i+'\'></div></div></div><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></div></a></div>');
+						
+						$chanelsContent = $(".agreratorBox_supportImgs[data-imgs-id='"+i+"']");
+						for(j = 0; j < searchResultData[0][i][0].support_channels.length; j++)
+							$chanelsContent.append("<img src='"+searchResultData[0][i][0].support_channels[j].logo_url+"' alt='"+searchResultData[0][i][0].support_channels[j].name+"'>");
+						
+						$cars = searchResultData[0][i].park_cars.split(";");
+						if($cars[0] == "none")
+							$(".parkCar_Imgs[data-cars-id='"+i+"']").append("<img src='./imgs/parkCar_no.png' alt='No'>");
+						else
+							$(".parkCar_Imgs[data-cars-id='"+i+"']").append("<img src='./imgs/parkCar_yes.png' alt='Yes'>");
+
+						$agregatorsContent = $("#agregatorBox_agregatorsList[data-agregators-id='"+i+"']");
+						for(j = 0; j < searchResultData[0][i][1].some_info_agregators.length; j++)
+							$agregatorsContent.append("<div class='col30pr'><img src='"+searchResultData[0][i][1].some_info_agregators[j].logo_url+"' alt='"+searchResultData[0][i][1].some_info_agregators[j].name+"'></div>");
+						
+					}
+				} else {
+					searchRessultDiv.html("<p>По запросу <b>\"" + inputSearchData + "\" </b> нечего не найдено!</p>");
+				}
+
+				$("a").click(function () {
+	                attrValue = $(this).attr('data-parnter-id');
+	                if(attrValue != undefined) {
+	                    $store.setItem("lastVisitPartner", attrValue);
+	                }
+	            });
+
+	            retingUpdate();
+			}).fail(function(xhr, textStatus, error) {
+				modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+			});
 		});
 	</script>
 

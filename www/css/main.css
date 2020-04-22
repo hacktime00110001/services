@@ -1330,3 +1330,15 @@ ul {
 		width: 120px;
 	}
 }
+
+.search_result {
+	max-width: 88%;
+	display: none;
+	font-size: 13px;
+	margin: 20px 0 0 0;
+}
+
+.search_result p, .search_result p b {
+	font-size: inherit;
+	text-align: center;
+}
