@@ -41,7 +41,7 @@ $(document).ready(function() {
 							});
 						} else if(data[0].isReg == "0") {
 							$store.setItem("currentPage", "confirmation-code.html");
-							$store.setItem("firstAuth", "0");
+							$store.setItem("firstAuth", "1");
 							$store.setItem("userPhone", $phonenumber.val());
 							$store.setItem("password", data[0].password);
 							$("body").fadeOut(1000, function () {
