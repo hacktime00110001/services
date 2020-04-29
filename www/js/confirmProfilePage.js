@@ -23,11 +23,6 @@ $(document).ready(function () {
 		backSelect = parentDiv.children[1];
 		p = backSelect.children[0];
 		p.innerHTML = this.options[this.selectedIndex].text;
-		if(p.innerHTML == "Город") {
-			p.classList.add("colorB4B0B0");
-		} else {
-			p.classList.remove("colorB4B0B0");
-		}
 	}
 
 	$(".selectEvent_Date").on("blur", function() {
@@ -56,6 +51,7 @@ $(document).ready(function () {
 		var cities = data.split(",");
 		for(var i = 0; i < cities.length; i++) {
 			if(i == 0) {
+				$("#getCity").html(cities[i]);
 				$cityList.append(`<option selected>${cities[i]}</option>`);
 			} else {
 				$cityList.append(`<option>${cities[i]}</option>`);

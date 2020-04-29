@@ -18,11 +18,6 @@ $(document).ready(function () {
 		$("input[type='checkbox']").prop("checked", true);
 	});
 
-	function logincheckboxCheck (inp) {
-		inp.parentElement.classList.toggle("checkboxWhiteOff");
-		inp.parentElement.classList.toggle("checkboxWhiteOn");
-	}
-
 	function retingUpdate() {
 		let $high = "agrBox_rateGreen",
 			$medium = "agrBox_rateYellow",
