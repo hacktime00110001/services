@@ -1,4 +1,5 @@
-var $store = localStorage,
+let $store = localStorage,
+	$session = sessionStorage,
 	currentPage = $store.getItem("currentPage"),
 	$page = window.location.pathname.split("/")[window.location.pathname.split("/").length - 1];
 

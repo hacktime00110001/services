@@ -4,17 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <meta property="og:title" content="TaxiTime"> 
-        <meta name="description" content="">
-        <meta property="og:description" content=""> 
-        <meta name="twitter:title" content="TaxiTime">
-        <meta name="twitter:description" content="">
-
-        <meta property="og:image" content="./imgs/favicon.jpg">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="">
-        <meta property="og:site_name" content="SixTouchesTTaxiTimeeam">
-
         <link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
 
         <link rel="stylesheet" href="./libs/bootstrap.min.css"> 
@@ -25,7 +14,7 @@
         <title>TaxiTime</title>
         
     </head>
-<body ontouchstart="">
+    <body style="display:none;">
        
     <header>
         <div class="container">
@@ -33,7 +22,7 @@
                 <div class="analyticsTitle">
                     <img src="./imgs/registrationLogo.png" alt="TxT">
                     <p class="mr-3">Скидки и бонусы</p>
-                    <a onclick="window.history.back();">
+                    <a href="javascript:history.back()" class="transition">
                         <img class="back_to_homepage" src="./imgs/arrow_back.png" alt="Profile">
                     </a>
                 </div>
@@ -51,8 +40,9 @@
         </div>
     </main>  
 
-    <script type="text/javascript" src="./libs/jquery.min.js"></script>
-    <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
+    <script src="./libs/jquery.min.js"></script>
+    <script src="./libs/bootstrap.min.js"></script>
+    <script src="./libs/smoothTransition.js"></script>
 
     </body>
 </html>

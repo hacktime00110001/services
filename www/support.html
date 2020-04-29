@@ -5,16 +5,6 @@
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta property="og:title" content="TaxiTime"> 
-		<meta name="description" content="">
-		<meta property="og:description" content=""> 
-		<meta name="twitter:title" content="TaxiTime">
-		<meta name="twitter:description" content="">
-
-		<meta property="og:image" content="./imgs/favicon.jpg">
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="">
-		<meta property="og:site_name" content="SixTouchesTTaxiTimeeam">
 
 		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
 
@@ -24,8 +14,7 @@
 		<link rel="stylesheet" href="./css/main.css">
 
 	</head>
-	<body>
-	   
+	<body style="display: none;">
 	<header>
 		<div class="container">
 			<div class="row flex-column align-items-center">
@@ -61,87 +50,11 @@
 
 	<script src="./libs/jquery.min.js"></script>
 	<script src="./libs/bootstrap.min.js"></script>
-
-	<script src="./js/modal.js"></script>
-	<script src="./js/checkPage.js"></script>
+	<script src="./libs/smoothTransition.js"></script>
+	<script src="./libs/pageController.js"></script>
+	<script src="./libs/modalWindow.js"></script>
 	
-	<script>
-		function selectOnFocusOut(thisSelect) {
-		    parentDiv = thisSelect.parentNode;
-		    backSelect = parentDiv.children[1];
-		    img = backSelect.children[1];
-		    img.classList.remove('transf');
-		}
-
-		function selectOnClick(thisSelect) {
-		    parentDiv = thisSelect.parentNode;
-		    backSelect = parentDiv.children[1];
-		    img = backSelect.children[1];
-		    img.classList.toggle('transf');
-		}
-
-		selectEvent = document.getElementsByClassName('selectEvent');
-		for(var i = 0; i < selectEvent.length;i++) {
-		    selectEvent[i].addEventListener("change", selectEventFunc, false);
-		}
-
-		function selectEventFunc () {
-		    parentDiv = this.parentNode;
-		    backSelect = parentDiv.children[1];
-		    p = backSelect.children[0];
-		    p.innerHTML = this.options[this.selectedIndex].text;
-		}
-
-		try {
-			$("#email").val(JSON.parse($store.getItem("userdata")).email);
-		} catch (e) {
-			console.log(e); 
-		}
-		
-		if($store.getItem("userdata") != null) {
-			$(".selectEvent option[value='1']").remove();
-		}
-
-		$(".back_support").click(function () {
-			$store.setItem("currentPage", $store.getItem("lastPage"));
-			location.href = "./" + $store.getItem("lastPage");
-		});
-
-		$("#submit").click(function () {
-			var email = $("#email").val();
-			var msg = $("#desc_problem").val();
-			var reason = $("#selected").text();
-
-			$('#submit').prop('disabled', true);
-			if(email.match("^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-0-9A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})") == null || (email.length <= 4 || email.length >= 30)) {
-				modal_alert("Ошибка ввода данных!", 1, "Email введен не коректно!", function () {
-					$('#submit').prop('disabled', false);
-				}); 
-			} else if(reason == "Выберите причину") {
-				modal_alert("Ошибка ввода данных!", 1, "Вы не выбрали причину!", function () {
-					$('#submit').prop('disabled', false);
-				}); 
-			} else {
-				$.post("http://taxitime.pro/api/Support.php", { 
-					supportEmail: email,
-					supportMsg: msg,
-					supportReason: reason
-				}).done(function (data) {
-					modal_alert("Данные были отправлены!", 3, "Дождитесь ответа от службы поддержки, письмо прийдет на почту : " + email + "!", function () {
-						$('#submit').prop('disabled', false);
-						$store.setItem("currentPage", $store.getItem("lastPage"));
-						location.href = "./" + $store.getItem("lastPage");
-					});
-				}).fail(function(xhr, textStatus, error){
-					modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>", function () {
-						$('#submit').prop('disabled', false);
-						$store.setItem("currentPage", $store.getItem("lastPage"));
-						location.href = "./" + $store.getItem("lastPage");
-					});
-				});
-			}
-		});
-	</script>
+	<script src="./js/supportPage.js"></script>
 
 </body>
 </html>

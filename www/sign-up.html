@@ -5,16 +5,6 @@
 
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta property="og:title" content="TaxiTime"> 
-		<meta name="description" content="">
-		<meta property="og:description" content=""> 
-		<meta name="twitter:title" content="TaxiTime">
-		<meta name="twitter:description" content="">
-
-		<meta property="og:image" content="./imgs/favicon.jpg">
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="">
-		<meta property="og:site_name" content="SixTouchesTTaxiTimeeam">
 
 		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
 
@@ -24,7 +14,7 @@
 		<link rel="stylesheet" href="./css/main.css">
 
 	</head>
-	<body> 
+	<body style="display: none;"> 
 		<header>
 			<div class="container">
 				<div class="row flex-column align-items-center">
@@ -42,7 +32,7 @@
 					<form class="registrationForm">
 						<input type="text" id="name" placeholder="Имя">
 						<input type="email" id="email" placeholder="example@gmail.com">
-						<button type="button" id="end_reg" onclick="confirmSignUp()">Завершить регистрацию</button>
+						<button type="button" id="end_reg">Завершить регистрацию</button>
 					</form>
 				</div>
 			</div>
@@ -50,78 +40,12 @@
 
 		<script src="./libs/jquery.min.js"></script>
 		<script src="./libs/bootstrap.min.js"></script>
+		<script src="./libs/smoothTransition.js"></script>
+		<script src="./libs/pageController.js"></script>
+		<script src="./libs/modalWindow.js"></script>
 		<script src="./libs/jquery.mask.min.js"></script>
-
-		<script src="./js/modal.js"></script>
-		<script src="./js/checkPage.js"></script>
 		
-		<script>
-			function confirmSignUp() {
-				var name = $("#name").val();
-				var email = $("#email").val();
-
-				$('#end_reg').prop('disabled', 'true');
-
-				if(name.match("^([А-Я])+([а-я]+)") == null || (name.length <= 1 || name.length >= 20)) {
-					modal_alert("Ошибка ввода данных!", 1, "Имя введено не корректно!", function () {
-						$('#end_reg').prop('disabled', false);
-					});
-				} else if(email.match("^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-0-9A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})") == null || (email.length <= 4 || email.length >= 30)) {
-					modal_alert("Ошибка ввода данных!", 1, "Email введен не коректно!", function () {
-						$('#end_reg').prop('disabled', false);
-					});
-				} else {
-					$.post("http://taxitime.pro/api/SignUp.php", { 
-						sendMail: email
-					}).done(function (response) {
-						modal_alert("Данные отправлены!", 3, "Письмо было отправленно на почту! Не забудьте проверить в «Спаме»!", function () {
-							modal_email(email, function () {
-								$(".pb_close").prop('disabled', 'true');
-								var code = $(".pb_confirm_code").val().replace(/\s/g, '');
-								if(code.length < 4) {
-									modal_alert("Ошибка ввода данных!", 1, "Код введен не корректно!", function () {
-										$(".pb_close").prop('disabled', false);
-									});
-								} else if(code != response) {
-									modal_alert("Код не подошел!", 2, "Код введен не верно!", function () {
-										$(".pb_close").prop('disabled', false);
-									});
-								} else {
-									$(".modal_w_prompt").fadeOut(0);
-									$(".modal_w_prompt").remove();
-									$.post("http://taxitime.pro/api/SignUp.php", { 
-										phonenumber: localStorage.getItem("userPhone"),
-										password: localStorage.getItem("password"),
-										email: email,
-										name: name
-									}).done(function (data) {
-										var userdata = JSON.parse(data);
-										$store.clear();
-										$store.setItem("userdata", JSON.stringify(userdata));
-										modal_alert("Данные подтверждены!", 3, "Регистрация прошла успешно!", function () {
-											$('#end_reg').prop('disabled', false);
-											$store.setItem("currentPage", "confirm-profile.html");
-											location.href = "./confirm-profile.html";
-										});
-									}).fail(function(xhr, textStatus, error){
-										modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>", function () {
-											$('#end_reg').prop('disabled', false);
-										});
-									});
-								}
-							}, function () {
-								$('#end_reg').prop('disabled', false);
-							});
-						});
-						
-					}).fail(function(xhr, textStatus, error) {
-						modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>", function () {
-							$('#end_reg').prop('disabled', false);
-						});
-					});
-				}
-			}
-		</script>
+		<script src="./js/signUpPage.js"></script>
 	
 	</body>
 </html>

@@ -1,88 +1,56 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
+		<title>TaxiTime</title>
+
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-		<meta property="og:title" content="TaxiTime"> 
-		<meta name="description" content="">
-		<meta property="og:description" content=""> 
-		<meta name="twitter:title" content="TaxiTime">
-		<meta name="twitter:description" content="">
-
-		<meta property="og:image" content="./imgs/favicon.jpg">
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="">
-		<meta property="og:site_name" content="SixTouchesTTaxiTimeeam">
 
 		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
 
 		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+		<link rel="stylesheet" href="./libs/preloader.css">
 
 		<link rel="stylesheet" href="./css/fonts.css">
 		<link rel="stylesheet" href="./css/main.css">
 				
-		<title>TaxiTime</title>
-		
 	</head>
-<body>
+	<body style="display: none;">
 	   
-	<header>
-		<div class="container">
-			<div class="row flex-column align-items-center">
-				<div class="analyticsTitle">
-					<img src="./imgs/registrationLogo.png" alt="TxT">
-					<p>Главная страница</p>
-					<a href="./profile.html">
-						<img class="w-23 h-29" src="./imgs/header_profile.png" alt="Profile">
+		<header>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="analyticsTitle">
+						<img src="./imgs/registrationLogo.png" alt="TxT">
+						<p>Главная страница</p>
+						<a href="./profile.html" class="transition">
+							<img class="w-23 h-29" src="./imgs/header_profile.png" alt="Profile">
+						</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<main>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<a href="./all-agregators.html" class="transition" style="width: 275px;">
+						<input type="button" class="driverProfile_OrangeBtn max-w-275 mb-0" value="Агрегаторы">
+					</a>
+					<div class="row analyticsContainer" id="analyticsContainer"></div>
+					<a href="./discounts-and-bonuses.html" class="transition" style="width: 275px;">
+						<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-36" value="Скидки и бонусы">
 					</a>
 				</div>
 			</div>
-		</div>
-	</header>
-	
-	<main>
-		<div class="container">
-			<div class="row flex-column align-items-center">
-				<input onclick="window.location.href='./all-agregators.html'" type="button" class="driverProfile_OrangeBtn max-w-275 mb-0" value="Агрегаторы">
-				<div class="row analyticsContainer" id="analyticsContainer"></div>
-				<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-15 mb-10" value="Получить авто в аренду">
-				<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-10" value="Работа в таксопарке">
-				<input onclick="window.location.href='./discounts-and-bonuses.html'" type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-36" value="Скидки и бонусы">
-			</div>
-		</div>
-	</main>  
+		</main>  
 
-	<script type="text/javascript" src="./libs/jquery.min.js"></script>
-	<script type="text/javascript" src="./libs/bootstrap.min.js"></script>
-	<script type="text/javascript" src="./js/modal.js"></script>
-	
-	<script>
-		$store = localStorage;
+		<script src="./libs/jquery.min.js"></script>
+		<script src="./libs/bootstrap.min.js"></script>
+		<script src="./libs/smoothTransition.js"></script>
+		<script src="./libs/modalWindow.js"></script>
 
-		const LIMIT = 4;
-
-		$.post("http://taxitime.pro/api/MainData.php", { 
-			getHomepage: true,
-			limit: LIMIT
-		}).done(function (data) {
-			var userdata = JSON.parse(data);
-			$content = $("#analyticsContainer");
-			for(i = 0; i < LIMIT; i++)
-				$content.append('<div class="analyticsBoxDiv"><a href="info-about-agregator.html" data-id=\''+userdata[i].id+'\'><div class="analyticsBox"><div class="borderOrange"><div class="borderOrange2"><img src="'+userdata[i].logo_url+'" alt="Агрегатор"></div></div><p class="analyticsBoxHour">Заработок в час</p><div class="analyticsBoxTable"><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].economy_price+' ₽</p><p>Эконом</p></div><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].comfort_price+' ₽</p><p>Комфорт</p></div></div><hr><p class="analyticsBoxText">'+userdata[i].name+'</p></div></a></div>');
-			
-			$("a").click(function () {
-				attrValue = $(this).attr('data-id');
-				if(attrValue != undefined) {
-					$store.setItem("lastVisitAgregator", attrValue);
-				}
-			});
-
-		}).fail(function(xhr, textStatus, error) {
-			modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
-		});
-
-	</script>
+		<script src="./js/homePage.js"></script>
 
 	</body>
 </html>

@@ -1,80 +1,52 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <meta property="og:title" content="TaxiTime"> 
-        <meta name="description" content="">
-        <meta property="og:description" content=""> 
-        <meta name="twitter:title" content="TaxiTime">
-        <meta name="twitter:description" content="">
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
 
-        <meta property="og:image" content="./imgs/favicon.jpg">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="">
-        <meta property="og:site_name" content="SixTouchesTTaxiTimeeam">
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+		<link rel="stylesheet" href="./libs/preloader.css">
 
-        <link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
-
-        <link rel="stylesheet" href="./libs/bootstrap.min.css"> 
-
-        <link rel="stylesheet" href="./css/fonts.css">
-        <link rel="stylesheet" href="./css/main.css">
-                
-        <title>TaxiTime</title>
-        
-    </head>
-<body ontouchstart="">
-       
-    <header>
-        <div class="container">
-            <div class="row flex-column align-items-center">
-                <div class="analyticsTitle">
-                    <img src="./imgs/registrationLogo.png" alt="TxT">
-                    <p class="mr-3">Агрегаторы</p>
-                    <a href="homepage.html">
-                        <img class="back_to_homepage" src="./imgs/arrow_back.png" alt="Profile">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <main>
-        <div class="container">
-            <div class="row flex-column align-items-center">
-                <div class="row analyticsContainer" id="analyticsContainer"></div>
-                <input onclick="window.location.href='homepage.html'" type="button" class="driverProfile_OrangeBtn max-w-275 mt-15 mb-26" value="Назад">
-            </div>
-        </div>
-    </main>  
-
-    <script type="text/javascript" src="./libs/jquery.min.js"></script>
-    <script type="text/javascript" src="./libs/bootstrap.min.js"></script>
-	<script type="text/javascript" src="./js/modal.js"></script>
-
-	<script type="text/javascript">
-        $store = localStorage;
-
-		$.post("http://taxitime.pro/api/MainData.php", { 
-			getFullAgregators: true
-		}).done(function (data) {
-			var userdata = JSON.parse(data);
-			$content = $("#analyticsContainer");
-			for(i = 0; i < userdata.length; i++)
-				$content.append('<div class="analyticsBoxDiv"><a href="info-about-agregator.html" data-id=\''+userdata[i].id+'\'><div class="analyticsBox"><div class="borderOrange"><div class="borderOrange2"><img src="'+userdata[i].logo_url+'" alt="Агрегатор"></div></div><p class="analyticsBoxHour">Заработок в час</p><div class="analyticsBoxTable"><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].economy_price+' ₽</p><p>Эконом</p></div><div class="analyticsBoxTableRow"><p class="value">до '+userdata[i].comfort_price+' ₽</p><p>Комфорт</p></div></div><hr><p class="analyticsBoxText">'+userdata[i].name+'</p></div></a></div>');
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">
+				
+		<title>TaxiTime</title>
 		
-            $("a").click(function () {
-                attrValue = $(this).attr('data-id');
-                if(attrValue != undefined) {
-                    $store.setItem("lastVisitAgregator", attrValue);
-                }
-            });
+	</head>
+	<body style="display: none;">
+	   
+	<header>
+		<div class="container">
+			<div class="row flex-column align-items-center">
+				<div class="analyticsTitle">
+					<img src="./imgs/registrationLogo.png" alt="TxT">
+					<p class="mr-3">Агрегаторы</p>
+					<a href="./homepage.html" class="transition">
+						<img class="back_to_homepage" src="./imgs/arrow_back.png" alt="Profile">
+					</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<main>
+		<div class="container">
+			<div class="row flex-column align-items-center">
+				<div class="row analyticsContainer" id="analyticsContainer"></div>
+				<a href="./homepage.html" class="transition" style="width: 275px;">
+					<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-15 mb-26" value="Назад">
+				</a>
+			</div>
+		</div>
+	</main>  
 
-        }).fail(function(xhr, textStatus, error) {
-			modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
-		});
-	</script>
-    </body>
+	<script src="./libs/jquery.min.js"></script>
+	<script src="./libs/bootstrap.min.js"></script>
+	<script src="./libs/smoothTransition.js"></script>
+	<script src="./libs/modalWindow.js"></script>
+
+	<script src="./js/allAgregatorsPage.js"></script>
+	</body>
 </html>

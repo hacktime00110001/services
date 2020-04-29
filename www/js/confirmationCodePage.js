@@ -1,6 +1,5 @@
 $(document).ready(function() {
-	var seconds = 179,
-		$store = localStorage,
+	let seconds = 179,
 		firstAuth = $store.getItem("firstAuth");
 		
 	if(firstAuth === "1") {
@@ -30,14 +29,16 @@ $(document).ready(function() {
 				$(".codeInfo").html("<p class='codeInfoAfter'>Вы исчерпали попытки!</p>");
 			}
 		}).fail(function(xhr, textStatus, error){
-			modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+			modalAlert("Server error!", 2, "Problem with server!");
 		});
 	} else if(firstAuth === "0") {
 		$(".codeInfo").after("<div class='request_in_support'>Если номер телефона введен неверно вы можете <span id='correct_pn'>исправить номер</span> или обратится в <span id='request_in_support'>службу поддержки</span></div>");
 		$(".codeInfo").empty();
 		$(".codeInfo").html("<b><span id='forgot_password'>Забыли пароль?</span></b>");
 	} else {
- 		location.href = "./sign-in.html";
+ 		$("body").fadeOut(1000, function () {
+			window.location = "./sign-in.html";
+		});
 	}
 
 	$('#conf-code').pinlogin({
@@ -49,23 +50,27 @@ $(document).ready(function() {
 				checkUserEnterPin : pin 
 			}).done(function (encPin) {
 				if(encPin == $store.getItem("password") && firstAuth != "1") {
-					modal_alert("Информация!", 0, "Вы успешно авторизовались!");
+					modalAlert("Информация!", 0, "Вы успешно авторизовались!");
 					$(".mb_close").click(function () {
 						$.post("http://taxitime.pro/api/SignIn.php", { 
 							signIn : $store.getItem("userPhone")
 						}).done(function (data) {
-							var userdata = JSON.parse(data);
+							let userdata = JSON.parse(data);
 							$store.clear();
 							$store.setItem("userdata", JSON.stringify(userdata));
 							if(userdata.status == "0") {
 								$store.setItem("currentPage", "confirm-profile.html");
-								location.href = "./confirm-profile.html";
+								$("body").fadeOut(1000, function () {
+									window.location = "./confirm-profile.html";
+								});
 							} else {
 								$store.setItem("currentPage", "profile.html");
-								location.href = "./profile.html";
+								$("body").fadeOut(1000, function () {
+									window.location = "./profile.html";
+								});
 							}
-						}).fail(function(xhr, textStatus, error){
-							modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+						}).fail(function(xhr, textStatus, error) {
+							modalAlert("Server error!", 2, "Problem with server!");
 						});
 					});
 				} else if(encPin == $store.getItem("password") && firstAuth === "1") {
@@ -73,16 +78,17 @@ $(document).ready(function() {
 						updateIsReg : $store.getItem("userPhone")
 					}).done(function (data) {
 						$store.setItem("currentPage", "sign-up.html");
-						location.href = "./sign-up.html";
+						$("body").fadeOut(1000, function () {
+							window.location = "./sign-up.html";
+						});
 					}).fail(function(xhr, textStatus, error){
-						modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+						modalAlert("Server error!", 2, "Problem with server!");
 					});
 				} else {
-					modal_alert("Предупреждение!", 1, "Код введен не верно, попробуйте снова!");
+					modalAlert("Предупреждение!", 1, "Код введен не верно, попробуйте снова!");
 				}
 			});
 		}
-
 	});
 
 	$(document).on('click','#one_attempt',function(){
@@ -92,9 +98,9 @@ $(document).ready(function() {
 			updateCountOfTry : $store.getItem("userPhone"),
 		}).done(function (newPassword) {
 			$store.setItem("password", newPassword);
-			modal_alert("Информация", 3, "Код был отправлен!");
+			modalAlert("Информация", 3, "Код был отправлен!");
 		}).fail(function(xhr, textStatus, error){
-			modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+			modalAlert("Server error!", 2, "Problem with server!");
 		});
 	});
 
@@ -105,28 +111,28 @@ $(document).ready(function() {
 			forgotPassword : $store.getItem("userPhone")
 		}).done(function (newPassword) {
 			$store.setItem("password", newPassword);
-			modal_alert("Информация", 3, "Пароль был отпарвлен на почту привязанную к этому номеру телефона! Не забудьте проверить в «Спаме»!");
+			modalAlert("Информация", 3, "Пароль был отпарвлен на почту привязанную к этому номеру телефона! Не забудьте проверить в «Спаме»!");
 		}).fail(function(xhr, textStatus, error){
-			modal_alert("Server error!", 2, "xhr.statusText: " + xhr.statusText + "<br>textStatus: " + textStatus + "<br>error: " + error + "<br>");
+			modalAlert("Server error!", 2, "Problem with server!");
 		});
 	});
 
 	$("#correct_pn").click(function () {
 		window.localStorage.clear();
-		modal_alert("Предупреждение", 1, "Введите номер телефона заново, будьте внимательнее :)", function () {
+		modalAlert("Предупреждение", 1, "Введите номер телефона заново, будьте внимательнее :)", function () {
 			$store.setItem("currentPage", "sign-in.html");
-			location.href = "./sign-in.html";
+			$("body").fadeOut(1000, function () {
+				window.location = "./sign-in.html";
+			});
 		});
-	});
-
-	$("#request_in_support").click(function () {
-		modal_alert("Информация", 0, "Служба поддержки временно не доступна!");
 	});
 
     $("#request_in_support").click(function () {
         $store.setItem("currentPage", "support.html");
         $store.setItem("lastPage", "sign-in.html");
-        location.href = "./support.html";
+        $("body").fadeOut(1000, function () {
+			window.location = "./support.html";
+		});
     });
 
 });

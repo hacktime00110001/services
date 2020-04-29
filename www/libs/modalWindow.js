@@ -1,4 +1,4 @@
-function modal_alert($title, $type, $msg, $confirm = function () {}) {
+function modalAlert($title, $type, $msg, $confirm = function () {}) {
 	$("body").prepend("<div class='modal_w_alert'><div class='message_box'><b class='mb_title'></b><div class='mb_content'><div class='mb_status_icon'></div><span class='mb_msg'></span></div><input type='button' class='mb_close' value='OK'></div></div>");
 	$(".mb_title").text($title);
 
@@ -8,6 +8,7 @@ function modal_alert($title, $type, $msg, $confirm = function () {}) {
 		case 2: $(".mb_status_icon").addClass("mb_error"); break;
 		case 3: $(".mb_status_icon").addClass("mb_success"); break;
 	}
+	
 	$(".mb_msg").html($msg);
 	$(".modal_w_alert").fadeIn(400).css("display", "flex");
 
@@ -18,7 +19,7 @@ function modal_alert($title, $type, $msg, $confirm = function () {}) {
 	});
 }
 
-function modal_email($email, $confirm, $cancel = function () {}) {
+function modalEmail($email, $confirm, $cancel = function () {}) {
 	$("body").prepend("<div class='modal_w_prompt'><div class='prompt_box'><b class='pb_title'></b><div class='pb_content'><span class='pb_info_msg'></span><input type='text' class='pb_confirm_code' placeholder='## ##'></div><div class='pb_btns'><input type='button' class='pb_confirm' value='ПОДТВЕРДИТЬ'><input type='button' class='pb_close' value='ЗАКРЫТЬ'></div></div></div>");
 
 	$(".pb_title").text("Подтверждение почты!");
