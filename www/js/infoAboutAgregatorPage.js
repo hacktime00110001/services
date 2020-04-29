@@ -125,7 +125,7 @@ $(document).ready(function () {
 						$agregatorsContent.append("<div class='col30pr'><img src='"+contentData[0][i][1].some_info_agregators[j].logo_url+"' alt='"+contentData[0][i][1].some_info_agregators[j].name+"'></div>");
 					
 				}
-			} else if(contentData[0].length != 0 && offset == 0) {
+			} else if(contentData[0].length == 0 && offset == 0) {
 				$("#main_content").html('<div class="row analyticsContainer" style="height: 100vh;display: flex;align-content: center;"><h2 style="color: #333333; text-align: center;">У данного агрегатора нет партнеров!</h2></div>');
 			}
 
