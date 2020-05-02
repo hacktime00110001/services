@@ -696,6 +696,7 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 .fs_15 {font-size: 15px}
 .fs_15 {font-size: 15px}
 .fs_16 {font-size: 16px}
+.fs_17 {font-size: 17px}
 .fs_18 {font-size: 18px}
 .fs_19 {font-size: 19px}
 .fs_20 {font-size: 14px !important}
@@ -1271,6 +1272,128 @@ ul {
     text-shadow: 0px 0px 1px #333333;
 }
 
+/* DISCOUNT */
+
+.discount {
+    width: 100%;
+	background-color: white;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(176,176,176,1);
+	-moz-box-shadow: 0px 3px 5px 0px rgba(176,176,176,1);
+	box-shadow: 0px 3px 5px 0px rgba(176,176,176,1);
+	padding: 10px 28px 16px 28px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.discount_OrangeBtn {
+	width: 100%;
+	max-width: 275px;
+	background-color: #FF8E16;
+	border: none;
+	border-radius: 5px;
+	font-size: 12px;
+	color: white;
+	font-family: "Montserrat Bold";
+	height: 29px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.discount_OrangeBtn:hover {
+	background-color: #D57713;
+}
+
+.discount img {
+    max-width: 277px;
+}
+
+.discount__Img {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 277px;
+    margin-top: -70px;
+}
+
+.discount__info {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+}
+
+.discount__info p {
+    font-size: 18px;
+    color: white;
+    text-shadow: 0px 0px 6px rgba(0,0,0,1);
+}
+
+.discount__info2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.discount__info2 p {
+    font-size: 22px;
+    color: white;
+    font-family: "Montserrat Medium";
+    text-shadow: 0px 0px 6px rgba(0,0,0,0.8);
+}
+
+.discount__info2 p span {
+    font-size: 22px;
+    color: #FF8E16;
+    font-family: "Montserrat Medium";
+    text-shadow: 0px 0px 6px rgba(0,0,0,0.8);
+}
+
+.discount__Img--Back {
+    width: 100%;
+    background-color: #333333;
+    border-radius: 14px;
+    max-width: 277px;
+}
+
+.discount__Img--Back img {
+    padding: 10px 15px;
+}
+
+.discount__Img--Back div {
+    padding: 10px;
+    background-color: #1E1E1E;
+}
+
+.discount__Img--Back div p {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+.discount__Img--Back .discount__text {
+    text-align: justify;
+    padding: 10px 25px;
+    line-height: 12px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 10px;
+}
+
+.discount__text span {
+    color: white;
+    font-size: 10px;
+    display: none;
+}
+
+.d_none {
+    display: none;
+}
+
+.d_block {
+    display: block;
+}
+
 /* WIDTH */
 .w-9 {width: 9px !important}
 .w-23 {width: 23px !important}
@@ -1292,26 +1415,54 @@ ul {
 .mb-2 {margin-bottom: 2px !important}
 .mb-5 {margin-bottom: 5px !important}
 .mb-10 {margin-bottom: 10px}
+.mb-15 {margin-bottom: 15px}
+.mb-20 {margin-bottom: 20px}
 .mb-26 {margin-bottom: 26px}
 .mb-36 {margin-bottom: 36px}
 /* PADDING */
 .p-5 {padding: 5px !important}
+.p-6 {padding: 6px !important}
 .p-10 {padding: 10px}
 .p-15 {padding: 15px}
+.p-20 {padding: 20px}
 .pl-10 {padding-left: 10px}
 .pl-20 {padding-left: 20px}
 .pl-30 {padding-left: 30px}
 .pr-10 {padding-right: 10px}
 .pr-20 {padding-right: 20px}
 .pr-30 {padding-right: 30px}
-
-
+/* COLOR */
+.colorFF8E16 {
+    color: #FF8E16;
+}
+.colorFFF {
+    color: #FFF;
+}
 
 
 @media only screen and (max-width : 370px) {
 	.agregatorBox_agregatorsList {
 		padding-right: 0px;
 	}
+    .discount__info p {
+        font-size: 17px;
+    }
+}
+
+
+@media only screen and (max-width : 360px) {
+	.discount__Img {
+        margin-top: -65px;
+    }
+    .discount__info p {
+        font-size: 15px;
+    }
+    .discount__info2 p {
+        font-size: 20px;
+    }
+    .discount__info2 p span {
+        font-size: 20px;
+    }
 }
 
 @media only screen and (max-width : 350px) {
@@ -1327,12 +1478,37 @@ ul {
 	.value {
 		font-size: 10px !important;
 	}
+    .discount__Img {
+        margin-top: -60px;
+    }
 }
 
 @media only screen and (max-width : 340px) {
 	.w-120_340 {
 		width: 120px;
 	}
+    .discount__info {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media only screen and (max-width : 330px) {
+    .discount__Img {
+        margin-top: -55px;
+    }
+    .discount__info {
+        margin-bottom: 5px;    
+    }
+    .discount__info p {
+        font-size: 14px;
+    }
+    .discount__info2 p {
+        font-size: 18px;
+    }
+    .discount__info2 p span {
+        font-size: 18px;
+    }
 }
 
 .search_result {

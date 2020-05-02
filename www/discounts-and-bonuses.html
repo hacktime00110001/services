@@ -32,10 +32,74 @@
     
     <main>
         <div class="container">
-            <div class="row flex-column align-items-center">
-                <div class="row analyticsContainer" style="height: 100vh;display: flex;align-content: center;">
-                	<h2 style="color: #8DC63F; text-align: center;">Здесь вскоре будут размещены скидки и бонусы :)</h2>
+            <div class="row flex-column align-items-center p-20">
+                <div class="p-6 w-100">
+                    <div class="discount">
+                        <p class="colorFF8E16 fw_medium">Автомойка "Рога и копыта"</p>
+                        <div class="agregatorBox_hr w-100"></div>
+                        <div class="discount__Card w-100">
+                            <div class="front w-100 d-flex flex-column align-items-center">
+                                <img class="w-100 discountImg" src="./imgs/discount.png" alt="">
+                                <div class="discount__Img">
+                                    <div class="discount__info">
+                                        <p>1234&#8195;5678&#8195;1234&#8195;5678</p>
+                                    </div>
+                                    <div class="discount__info2">
+                                        <p>Скидка <span>15%</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="back w-100 d-flex flex-column align-items-center">
+                                <div class="discount__Img--Back">
+                                    <img src="./imgs/discount_reverse-arrow.png" alt="">
+                                    <div>
+                                        <p>Условия</p>
+                                    </div>
+                                    <p class="discount__text"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consecteturvoluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consectetur </span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="agregatorBox_hr mt-15 mb-15 w-100"></div>
+                        <input type="button" class="discount_OrangeBtn w-100" value="Подробнее">
+                        <input type="button" class="discount_OrangeBtn w-100 d_none" value="Воспользоваться">
+                    </div>
                 </div>
+                <div class="p-6 w-100">
+                    <div class="discount">
+                        <p class="colorFF8E16 fw_medium">Автомойка "Рога и копыта"</p>
+                        <div class="agregatorBox_hr w-100"></div>
+                        <div class="discount__Card w-100">
+                            <div class="front w-100 d-flex flex-column align-items-center">
+                                <img class="w-100 discountImg" src="./imgs/discount.png" alt="">
+                                <div class="discount__Img">
+                                    <div class="discount__info">
+                                        <p>1234&#8195;5678&#8195;1234&#8195;5678</p>
+                                    </div>
+                                    <div class="discount__info2">
+                                        <p>Скидка <span>15%</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="back w-100 d-flex flex-column align-items-center">
+                                <div class="discount__Img--Back">
+                                    <img src="./imgs/discount_reverse-arrow.png" alt="">
+                                    <div>
+                                        <p>Условия</p>
+                                    </div>
+                                    <p class="discount__text"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consecteturvoluptate velit esse cillum dolore eu fugiat Lorem ipsum dolor sit amet, consectetur </span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="agregatorBox_hr mt-15 mb-15 w-100"></div>
+                        <input type="button" class="discount_OrangeBtn w-100" value="Подробнее">
+                        <input type="button" class="discount_OrangeBtn w-100 d_none" value="Воспользоваться">
+                    </div>
+                </div>
+            </div>
+            <div class="row flex-column align-items-center mb-20">
+                <a href="./homepage.html" class="transition" style="width: 275px;">
+                    <input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-0" value="Вернуться на главную">
+                </a>
             </div>
         </div>
     </main>  
@@ -43,6 +107,37 @@
     <script src="./libs/jquery.min.js"></script>
     <script src="./libs/bootstrap.min.js"></script>
     <script src="./libs/smoothTransition.js"></script>
-
+    <script src="./libs/jquery.flip.js"></script>
+    <script>
+        $(document).ready(function(){
+           $(".discount__Img--Back").css("height", $(".discountImg").height());
+        });
+    </script>
+    <script>
+        $(".discount__Card").flip({
+          trigger: 'manual'
+        });
+        $(".discount__Card .front").on("click", function(){
+            $(this).parent().flip(true);
+            $(this).next().children().children( ".discount__text" ).children().delay(100).slideDown();
+            $(this).next().children().css("height", "auto");
+            $(this).parent().next().next().next().removeClass("d_none");
+            $(this).parent().next().next().addClass("d_none");
+        });
+        $(".discount input[value='Подробнее']").on("click", function(){
+            $(this).prev().prev().flip(true);
+            $(this).prev().prev().children( ".back" ).children().children( ".discount__text" ).children().delay(300).slideDown();
+            $(this).prev().prev().children( ".back" ).children().css("height", "auto");
+            $(this).next().removeClass("d_none");
+            $(this).addClass("d_none");
+        });
+        $(".discount__Card .back").on("click", function(){
+            $(this).parent().flip(false);
+            $(this).children().children( ".discount__text" ).children().slideUp();
+            $(this).children().css("height", $(".discountImg").height() - 2);
+            $(this).parent().next().next().next().addClass("d_none");
+            $(this).parent().next().next().removeClass("d_none");
+        });
+    </script>
     </body>
 </html>
