@@ -1319,7 +1319,36 @@ ul {
 	flex-direction: column;
 	justify-content: flex-end;
 	max-width: 285px;
-	margin-top: -70px;
+	margin-top: -140px;
+}
+
+.discount__info--name {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.discount__info--name p {
+    font-size: 17px;
+	font-family: "Roboto Bold";
+	color: #FF8E16;
+	text-shadow: 0px 0px 6px rgba(0,0,0,1);
+}
+
+.discount__info--your {
+    padding-left: 70px;
+    margin-bottom: 13px;
+}
+
+.discount__info--your p {
+    font-size: 12px;
+	font-family: "Montserrat Medium";
+	color: white;
+}
+
+.discount__info--your p span {
+    font-size: 12px;
+	font-family: "Montserrat Bold";
+	color: white;
 }
 
 .discount__info {
@@ -1333,6 +1362,7 @@ ul {
 	color: white;
 	text-shadow: 0px 0px 6px rgba(0,0,0,1);
 	word-spacing: 20px;
+    font-family: "Roboto Regular";
 }
 
 .discount__info2 {
@@ -1343,14 +1373,14 @@ ul {
 .discount__info2 p {
 	font-size: 22px;
 	color: white;
-	font-family: "Montserrat Medium";
+	font-family: "Roboto Black";
 	text-shadow: 0px 0px 6px rgba(0,0,0,0.8);
 }
 
 .discount__info2 p span {
 	font-size: 22px;
 	color: #FF8E16;
-	font-family: "Montserrat Medium";
+	font-family: "Roboto Black";
 	text-shadow: 0px 0px 6px rgba(0,0,0,0.8);
 }
 
@@ -1374,6 +1404,7 @@ ul {
 	color: white;
 	font-size: 16px;
 	text-align: center;
+    font-family: "Roboto Medium";
 }
 
 .discount__Img--Back .discount__text {
@@ -1389,6 +1420,7 @@ ul {
 	color: white;
 	font-size: 10px;
 	display: none;
+    font-family: "Roboto Regular";
 }
 
 .d_none {
@@ -1445,29 +1477,61 @@ ul {
 }
 
 
+@media only screen and (max-width : 385px) {
+    .discount__Img {
+        margin-top: -137px;
+    }
+    .discount__info p {
+		word-spacing: 15px;
+	}
+}
+
+@media only screen and (max-width : 375px) {
+    .discount__Img {
+        margin-top: -135px;
+    }
+    .discount__info {
+		margin-bottom: 5px;
+	}
+}
+
 @media only screen and (max-width : 370px) {
 	.agregatorBox_agregatorsList {
 		padding-right: 0px;
 	}
-	.discount__info p {
+    .discount__Img {
+        margin-top: -133px;
+    }
+    .discount__info--your {
+        padding-left: 62px;
+    }
+    .discount__info p {
+		word-spacing: 12px;
+	}
+}
+
+@media only screen and (max-width : 365px) {
+    .discount__Img {
+        margin-top: -130px;
+    }
+    .discount__info--your {
+        margin-bottom: 7px;
+    }
+}
+
+@media only screen and (max-width : 360px) {
+    .discount__info p {
 		font-size: 17px;
 	}
 }
 
-
-@media only screen and (max-width : 360px) {
-	.discount__Img {
-		margin-top: -65px;
-	}
-	.discount__info p {
-		font-size: 15px;
-	}
-	.discount__info2 p {
-		font-size: 20px;
-	}
-	.discount__info2 p span {
-		font-size: 20px;
-	}
+@media only screen and (max-width : 355px) {
+    .discount__Img {
+        margin-top: -125px;
+    }
+    .discount__info p {
+        word-spacing: 10px;
+    }
 }
 
 @media only screen and (max-width : 350px) {
@@ -1477,14 +1541,26 @@ ul {
 	.argeratorSearch_Cont {
 		width: 280px !important;
 	}
+    .discount__info--name p {
+        font-size: 16px;
+    }
 }
 
 @media only screen and (max-width : 345px) {
 	.value {
 		font-size: 10px !important;
 	}
-	.discount__Img {
-		margin-top: -60px;
+    .discount__Img {
+        margin-top: -120px;
+    }
+    .discount__info--name {
+        margin-bottom: 5px;
+    }
+    .discount__info--your {
+        padding-left: 55px;
+    }
+	.discount__info p {
+		font-size: 16px;
 	}
 }
 
@@ -1492,27 +1568,28 @@ ul {
 	.w-120_340 {
 		width: 120px;
 	}
+    .discount__Img {
+        margin-top: -115px;
+    }
+    .discount__info--your p {
+        font-size: 10px;
+    }
+    .discount__info--your p span {
+        font-size: 10px;
+    }
 	.discount__info {
 		padding-left: 15px;
 		padding-right: 15px;
+        margin-bottom: 0;
 	}
 }
 
 @media only screen and (max-width : 330px) {
-	.discount__Img {
-		margin-top: -55px;
-	}
-	.discount__info {
-		margin-bottom: 5px;    
-	}
-	.discount__info p {
-		font-size: 14px;
-	}
-	.discount__info2 p {
-		font-size: 18px;
-	}
-	.discount__info2 p span {
-		font-size: 18px;
+    .discount__Img {
+        margin-top: -110px;
+    }
+    .discount__info p {
+		font-size: 15px;
 	}
 }
 

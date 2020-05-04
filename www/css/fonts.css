@@ -12,3 +12,23 @@
 	font-family: "Montserrat Bold";
 	src: url("../fonts/Montserrat-Bold.ttf");
 }
+
+@font-face {
+	font-family: "Roboto Regular";
+	src: url("../fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+	font-family: "Roboto Medium";
+	src: url("../fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+	font-family: "Roboto Bold";
+	src: url("../fonts/Roboto-Bold.ttf");
+}
+
+@font-face {
+	font-family: "Roboto Black";
+	src: url("../fonts/Roboto-Black.ttf");
+}
