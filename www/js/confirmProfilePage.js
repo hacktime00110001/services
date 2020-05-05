@@ -23,6 +23,7 @@ $(document).ready(function () {
 	$.post("http://taxitime.pro/api/Profile.php", { 
 		getCities: true
 	}).done(function (data) {
+		console.log(data);
 		var cities = data.split(",");
 		for(var i = 0; i < cities.length; i++) {
 			if(i == 0) {

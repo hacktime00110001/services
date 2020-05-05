@@ -50,7 +50,7 @@ $(document).ready(function () {
 				winHeight = $(window).height();
 				scrollToElem = targetPos - winHeight;
 				winScrollTop = $(this).scrollTop();
-				if(winScrollTop > scrollToElem) {
+				if(winScrollTop > scrollToElem && f) {
 					f = false;
 					$('.targetElemScroll').removeClass('targetElemScroll');
 					$startOffset += 10;
@@ -93,13 +93,13 @@ $(document).ready(function () {
 			getInfoAboutAgregator: JSON.stringify({
 				"id": $store.getItem("lastVisitAgregator"),
 				"limit": limit + "",
-				"offset": offset + ""
+				"offset": offset + "",
+				"cityName": JSON.parse($store.getItem('userdata')).city
 			})
 		}).done(function (data) {
 			$(".lds-ring").remove();
 
 			let contentData = JSON.parse(data);
-
 			if(offset == 0)
 				$(".analyticsTitle p").html(contentData[1].name);
 
@@ -172,7 +172,8 @@ $(document).ready(function () {
 					"id": $store.getItem("lastVisitAgregator"),
 					"limit": limit + "",
 					"offset": offset + "",
-					"name": inputSearchData.replace(/\s+/g, '')
+					"name": inputSearchData.replace(/\s+/g, ''),
+					"cityName": JSON.parse($store.getItem('userdata')).city
 				})
 			}).done(function (data) {
 				if(offset == 0) {
@@ -268,13 +269,12 @@ $(document).ready(function () {
 		filterData.id = $store.getItem("lastVisitAgregator");
 		filterData.limit = limit + "";
 		filterData.offset = offset + "";
+		filterData.cityName = JSON.parse($store.getItem('userdata')).city;
 		filterData.commissionData = commissionData;
 		filterData.paymentTypes = paymentTypes;
 		filterData.supportChannels = supportChannels;
 		filterData.ratingPartners = ratingPartners;
 		filterData.parkCars = parkCars;
-
-		console.log(JSON.stringify(filterData));
 
 		if(commissionData.length == 0) {
 			modalAlert("", 1, "Должна быть выбрана хотя бы одна комиссия!", function () {
@@ -305,7 +305,6 @@ $(document).ready(function () {
 			$(".lds-ring").remove();
 
 			let filterResultData = JSON.parse(data);
-			// console.log(filterResultData);
 
 			if(offset == 0) {
 				countOfRecordComponent.html(filterResultData[1].fullCount);
