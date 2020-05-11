@@ -635,6 +635,7 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 	padding: 15px;
 	background-color: #f9e4a4;
 	word-spacing: 10px;
+	text-align: justify;
 }
 
 .support_inp {
@@ -738,7 +739,10 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 	margin-top: 12px;
 	width: 272px;
 	height: 171px;
-	background-image: url("../imgs/card.png");
+	background-image: url("../imgs/neft-card.jpg");
+	background-repeat: no-repeat;
+	background-size: 272px 171px;
+	background-position: center;
 }
 
 .driverProfile_Info {
@@ -811,7 +815,10 @@ box-shadow: 0px 0px 5px 0px rgba(143,143,143,1);
 	margin-top: 12px;
 	width: 272px;
 	height: 171px;
-	background-image: url("../imgs/card.png"); 
+	background-image: url("../imgs/neft-card.jpg");
+	background-repeat: no-repeat;
+	background-size: 272px 171px;
+	background-position: center;
 }
 
 .addProfile_CardBlack {

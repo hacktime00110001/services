@@ -37,7 +37,7 @@ $(document).ready(function () {
 
 	$(".back_support").click(function () {
 		$store.setItem("currentPage", $store.getItem("lastPage"));
-		$("body").fadeOut(1000, function () {
+		$("body").fadeOut(PAGE_DELAY, function () {
 			window.location = "./" + $store.getItem("lastPage");
 		});
 	});
@@ -65,7 +65,7 @@ $(document).ready(function () {
 				modalAlert("Данные были отправлены!", 3, "Дождитесь ответа от службы поддержки, письмо прийдет на почту : " + email + "!", function () {
 					$('#submit').prop('disabled', false);
 					$store.setItem("currentPage", $store.getItem("lastPage"));
-					$("body").fadeOut(1000, function () {
+					$("body").fadeOut(PAGE_DELAY, function () {
 						window.location = "./" + $store.getItem("lastPage");
 					});
 				});
@@ -73,7 +73,7 @@ $(document).ready(function () {
 				modalAlert("Server error!", 2, "Problem with server!", function () {
 					$('#submit').prop('disabled', false);
 					$store.setItem("currentPage", $store.getItem("lastPage"));
-					$("body").fadeOut(1000, function () {
+					$("body").fadeOut(PAGE_DELAY, function () {
 						window.location = "./" + $store.getItem("lastPage");
 					});
 				});

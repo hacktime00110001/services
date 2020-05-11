@@ -36,7 +36,7 @@ $(document).ready(function() {
 		$(".codeInfo").empty();
 		$(".codeInfo").html("<b><span id='forgot_password'>Забыли пароль?</span></b>");
 	} else {
- 		$("body").fadeOut(1000, function () {
+ 		$("body").fadeOut(PAGE_DELAY, function () {
 			window.location = "./sign-in.html";
 		});
 	}
@@ -60,12 +60,12 @@ $(document).ready(function() {
 							$store.setItem("userdata", JSON.stringify(userdata));
 							if(userdata.status == "0") {
 								$store.setItem("currentPage", "confirm-profile.html");
-								$("body").fadeOut(1000, function () {
+								$("body").fadeOut(PAGE_DELAY, function () {
 									window.location = "./confirm-profile.html";
 								});
 							} else {
 								$store.setItem("currentPage", "profile.html");
-								$("body").fadeOut(1000, function () {
+								$("body").fadeOut(PAGE_DELAY, function () {
 									window.location = "./profile.html";
 								});
 							}
@@ -78,7 +78,7 @@ $(document).ready(function() {
 						updateIsReg : $store.getItem("userPhone")
 					}).done(function (data) {
 						$store.setItem("currentPage", "sign-up.html");
-						$("body").fadeOut(1000, function () {
+						$("body").fadeOut(PAGE_DELAY, function () {
 							window.location = "./sign-up.html";
 						});
 					}).fail(function(xhr, textStatus, error){
@@ -121,7 +121,7 @@ $(document).ready(function() {
 		window.localStorage.clear();
 		modalAlert("Предупреждение", 1, "Введите номер телефона заново, будьте внимательнее :)", function () {
 			$store.setItem("currentPage", "sign-in.html");
-			$("body").fadeOut(1000, function () {
+			$("body").fadeOut(PAGE_DELAY, function () {
 				window.location = "./sign-in.html";
 			});
 		});
@@ -130,7 +130,7 @@ $(document).ready(function() {
     $("#request_in_support").click(function () {
         $store.setItem("currentPage", "support.html");
         $store.setItem("lastPage", "sign-in.html");
-        $("body").fadeOut(1000, function () {
+        $("body").fadeOut(PAGE_DELAY, function () {
 			window.location = "./support.html";
 		});
     });

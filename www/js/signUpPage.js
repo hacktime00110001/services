@@ -31,7 +31,7 @@ $(document).ready(function () {
 					modalAlert("Данные подтверждены!", 3, "Регистрация прошла успешно!", function () {
 						$('#end_reg').prop('disabled', false);
 						$store.setItem("currentPage", "confirm-profile.html");
-						$("body").fadeOut(1000, function () {
+						$("body").fadeOut(PAGE_DELAY, function () {
 							window.location = "./confirm-profile.html";
 						});
 					});
@@ -101,7 +101,7 @@ $(document).ready(function () {
 								modalAlert("Данные подтверждены!", 3, "Регистрация прошла успешно!", function () {
 									$('#end_reg').prop('disabled', false);
 									$store.setItem("currentPage", "confirm-profile.html");
-									$("body").fadeOut(1000, function () {
+									$("body").fadeOut(PAGE_DELAY, function () {
 										window.location = "./confirm-profile.html";
 									});
 								});

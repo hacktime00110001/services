@@ -1,9 +1,9 @@
 $(document).ready(function () {
-	$("body").fadeIn(1000);
+	$("body").fadeIn(PAGE_DELAY);
 	$(".transition").click(function (e) {
 		e.preventDefault();
 		linkLocation = this.href;
-		$("body").fadeOut(1000, function () {
+		$("body").fadeOut(PAGE_DELAY, function () {
 			window.location = linkLocation;
 		});
 	});

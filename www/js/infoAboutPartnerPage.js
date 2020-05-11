@@ -25,7 +25,7 @@ $(document).ready(function () {
 		agregastorId: $store.getItem("lastVisitAgregator")
 	}).done(function (data) {
 		let partnerData = JSON.parse(data);
-
+		
 		$("#title_of_page").html(partnerData[0].name);
 		$("#title_of_partner").html(partnerData[1][0].name);
 		$("#reting").html(partnerData[1][0].rating);

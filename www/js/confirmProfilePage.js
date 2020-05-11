@@ -92,7 +92,7 @@ $(document).ready(function () {
 				modalAlert("Данные успешно обработаны!", 3, "Вы заполнили профиль!", function () {
 					$('#sendData').prop('disabled', false);
 					$store.setItem("currentPage", "profile.html");
-					$("body").fadeOut(1000, function () {
+					$("body").fadeOut(PAGE_DELAY, function () {
 						window.location = "./profile.html";
 					});
 				}); 

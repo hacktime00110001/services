@@ -23,7 +23,7 @@ $(document).ready(function() {
 					$store.setItem("firstAuth", "0");
 					$store.setItem("userPhone", $phonenumber.val());
 					$store.setItem("password", dataSignIn);
-					$("body").fadeOut(1000, function () {
+					$("body").fadeOut(PAGE_DELAY, function () {
 						window.location = "./confirmation-code.html";
 					});
 				} else {
@@ -36,7 +36,7 @@ $(document).ready(function() {
 							$store.setItem("firstAuth", "1");
 							$store.setItem("userPhone", $phonenumber.val());
 							$store.setItem("password", data[0].password);
-							$("body").fadeOut(1000, function () {
+							$("body").fadeOut(PAGE_DELAY, function () {
 								window.location = "./sign-up.html";
 							});
 						} else if(data[0].isReg == "0") {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 							$store.setItem("firstAuth", "1");
 							$store.setItem("userPhone", $phonenumber.val());
 							$store.setItem("password", data[0].password);
-							$("body").fadeOut(1000, function () {
+							$("body").fadeOut(PAGE_DELAY, function () {
 								window.location = "./confirmation-code.html";
 							});
 						} else if(data[0].isReg == "") {
@@ -53,7 +53,7 @@ $(document).ready(function() {
 								$store.setItem("firstAuth", "1");
 								$store.setItem("userPhone", $phonenumber.val());
 								$store.setItem("password", data[0].password);
-								$("body").fadeOut(1000, function () {
+								$("body").fadeOut(PAGE_DELAY, function () {
 									window.location = "./confirmation-code.html";
 								});
 							});
