@@ -60,4 +60,39 @@ $(document).ready(function () {
 	}).fail(function(xhr, textStatus, error) {
 		modalAlert("Server error!", 2, "Problem with server!");
 	});
+
+	$("#connectToParnter").click(function () {
+		$.post("http://taxitime.pro/api/Deals.php", { 
+			deals: JSON.stringify({
+				driverId: JSON.parse($store.getItem("userdata")).id,
+				partnerId: $store.getItem("lastVisitPartner")
+			})
+		}).done(function (data) {
+			$("#connectToParnter").prop("disabled", true);
+
+			let res = JSON.parse(data);
+			if(res.result == "Success create") {
+				modalAlert("Спасибо!", 3, "Ваша заявка отправлена. С Вами свяжутся в кратчайшие сроки чтобы обсудить детали.", function () {
+					$("#connectToParnter").prop("disabled", false);
+				});
+			} else if(res.result == "Record isset") {
+				modalAlert("Спасибо!", 0, "Ваша заявка находится в обработке, С Вами свяжутся в кратчайшие сроки чтобы обсудить детали.", function () {
+					$("#connectToParnter").prop("disabled", false);
+				});
+			} else if(res.result == "Delay") {
+				modalAlert("Спасибо!", 1, "Для отправки следующей заявки вам нужно пододжать 1 минуту!", function () {
+					$("#connectToParnter").prop("disabled", false);
+				});
+			} else {
+				modalAlert("Server error!", 2, "Problem with server!", function () {
+					$("#connectToParnter").prop("disabled", false);
+				});
+			}
+		}).fail(function(xhr, textStatus, error) {
+			modalAlert("Server error!", 2, "Problem with server!", function () {
+				$("#connectToParnter").prop("disabled", false);
+			});
+		});
+	});
+
 });
