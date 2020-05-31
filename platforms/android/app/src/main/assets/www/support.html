@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
+
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">
+	</head>
+	<body>
+	<header>
+		<div class="container">
+			<div class="row flex-column align-items-center">
+				<div class="analyticsTitle">
+					<img src="./imgs/registrationLogo.png" alt="TxT">
+					<p>Служба поддержки</p>
+					<img class="back_support" src="./imgs/arrow_back.png" alt="TxT">
+				</div>
+			</div>
+		</div>
+	</header>
+	<main>
+		<div class="container">
+			<div class="row flex-column align-items-center">
+				<input type="email" id="email" class="support_inp" placeholder="Ваша почта" maxlength="30">
+				<div class="posRel" style="width:85%;margin: 29px 0 29px 0;">
+					<select class="w-100 op-0-0 selectEvent m-t-5 selectEvent_Date">
+						<option selected>Выбрать причину</option>
+						<option value="1">Проблемы с регистрацией</option>
+						<option>Проблемы с профилем</option>
+						<option>Другая проблема</option>
+					</select>
+					<div class="dropdowmMy" style="width: 100%;">
+						<p class="selectEvent_DateP colorB4B0B0" style="color: #000;" id="selected">Выбрать причину</p>
+						<img src="./imgs/arrow_down.png" alt="">
+					</div>
+				</div>
+				<textarea placeholder="Описание вашей проблемы" id="desc_problem" maxlength="1500"></textarea>
+				<input type="button" id="submit" class="support_btn" value="Отправить">
+			</div>
+		</div>
+	</main>  
+	
+	<script src="./libs/constants.js"></script>
+	<script src="./libs/jquery.min.js"></script>
+	<script src="./libs/bootstrap.min.js"></script>
+	<script src="./libs/smoothTransition.js"></script>
+	<script src="./libs/pageController.js"></script>
+	<script src="./libs/modalWindow.js"></script>
+	
+	<script src="./js/supportPage.js"></script>
+
+</body>
+</html>

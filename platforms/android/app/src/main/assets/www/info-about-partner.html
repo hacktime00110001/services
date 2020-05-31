@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
+
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">	
+		<style>
+			.message_box { height: 185px; }
+			.mb_msg { max-height: 100px; }
+		</style>
+	</head>
+	<body>
+		   
+		<header>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="analyticsTitle">
+						<img src="./imgs/registrationLogo.png" alt="TxT">
+						<p class="mr-3" id="title_of_page"></p>
+						<a href="javascript:history.back()" class="transition">
+							<img class="back_to_homepage" src="./imgs/arrow_back.png" alt="Profile">
+						</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		
+		<main>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="row w-100 p-15">
+						<div class="w-100 p-5">
+							<div class="analyticsBox">
+								<div class="agregatorBox_name mt-10 mb-10" id="title_of_partner" style="padding-left: 0;"></div>
+								<p class="agregatorBox_rating" style="padding-right:0;">Рейтинг: <span class="reting" id="reting" style="padding-right:0;"></span></p>
+								<div class="w-190 agregatorBox_hr mt-10 mb-10"></div>
+								<p class="fw_bold">Краткое описание</p>
+								<p class="agregatorFull_decription" id="short_desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum.</p>
+								<div class="w-190 agregatorBox_hr mt-0 mb-10"></div>
+								<p class="fw_bold mb-10">Агрегаторы</p>
+								<div class="row agregatorFull_agregatorsList" id="agregatorBox_agregatorsList"></div>
+								<p class="fw_bold mt-15 mb-10">Условия работы</p>
+								<ul class="agregatorFull_decription pl-20 pr-20" id="work_cond"></ul>
+								<p class="fw_bold mt-15 mb-10">Каналы тех. поддержки:</p>
+								<div class="agreratorBox_supportImgs pl-0 mt-0" id="support_channels" style="justify-content: center;"></div>
+								<p class="fw_bold mt-15 mb-10">Парковые автомобили:</p>
+								<p class="agreratorFull_parkAuto fs_12 pl-30 pr-30" id="park_car_content"></p>
+								<input type="button" class="driverProfile_OrangeBtn max-w-275 mb-5" value="Подключиться" id="connectToParnter">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>  
+	   
+	   	<script src="./libs/constants.js"></script>
+		<script src="./libs/jquery.min.js"></script>
+		<script src="./libs/bootstrap.min.js"></script>
+		<script src="./libs/smoothTransition.js"></script>
+		<script src="./libs/modalWindow.js"></script>
+		
+		<script src="./js/infoAboutPartnerPage.js"></script>
+	</body>
+</html>

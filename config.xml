@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.cordova.bipbip" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>BipBip</name>
+    <description>Best app!</description>
+    <author email="info@bipbip.one" href="http://www.bipbip.one">BipBip Team</author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="5.0.3" />
+    <access origin="*" />
+    <allow-navigation href="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="SplashScreen" value="none" />
+    <platform name="android">
+        <preference name="android-targetSdkVersion" value="28" />
+        <preference name="android-minSdkVersion" value="19" />
+        <preference name="orientation" value="portrait" />
+        <preference name="DisallowOverscroll" value="true" />
+        <icon density="ldpi" src="resources/android/icons/icon-ldpi.png" />
+        <icon density="mdpi" src="resources/android/icons/icon-mdpi.png" />
+        <icon density="hdpi" src="resources/android/icons/icon-hdpi.png" />
+        <icon density="xhdpi" src="resources/android/icons/icon-xhdpi.png" />
+        <icon density="xxhdpi" src="resources/android/icons/icon-xxhdpi.png" />
+        <icon density="xxxhdpi" src="resources/android/icons/icon-xxxhdpi.png" />
+        <splash density="ldpi" src="resources/android/splash/drawable-ldpi-screen.png" />
+        <splash density="mdpi" src="resources/android/splash/drawable-mdpi-screen.png" />
+        <splash density="hdpi" src="resources/android/splash/drawable-hdpi-screen.png" />
+        <splash density="xhdpi" src="resources/android/splash/drawable-xhdpi-screen.png" />
+        <splash density="xxhdpi" src="resources/android/splash/drawable-xxhdpi-screen.png" />
+        <splash density="xxxhdpi" src="resources/android/splash/drawable-xxxhdpi-screen.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>

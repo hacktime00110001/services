@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
+
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">
+		
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="analyticsTitle">
+						<img src="./imgs/registrationLogo.png" alt="TxT">
+						<p>Профиль водителя</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+				<div class="addProfile_Card">
+					<div class="addProfile_CardBlack">
+						<div class="addProfile_CardLight">
+						</div>
+					</div>
+					<p>Карта НЕФТЬ — клубная бонусная карта для водителей.<br>Заполни профиль и получи доступ к скидкам</p>
+				</div>
+				<form class="addProfile_Form" action="" method="post">
+					<div class="posRel">
+						<select onclick="selectOnClick(this)" onfocusout="selectOnFocusOut(this)" id="selectCat" class="w-100 op-0-0 selectEvent"></select>
+						<div class="dropdowmMy" style="margin-top: 15px;">
+							<p id="getCity">Город</p>
+							<img src="./imgs/arrow_down.png" alt="">
+						</div>
+					</div>
+					<input class="addProfile_Input" type="text" id="name" placeholder="Имя">
+					<input class="addProfile_Input" type="text" id="surname" placeholder="Фамилия">
+					<input class="addProfile_Input" type="text" id="patronymic" placeholder="Отчество">
+					<div class="addProfile_Hr"></div>
+					<p class="fs_15">Дата рождения:</p>
+					<div class="addProfile_Input_Date">
+						<input class="addProfile_Input_Date1" type="text" id="day" placeholder="30" maxlength="2">
+						<div class="posRel addProfile_Input_Date2">
+							<select onclick="selectOnClick(this)" onfocusout="selectOnFocusOut(this)" class="w-100 op-0-0 selectEvent m-t-5 selectEvent_Date">
+								<option selected>Января</option>
+								<option>Февраля</option>
+								<option>Марта</option>
+								<option>Апреля</option>
+								<option>Мая</option>
+								<option>Июня</option>
+								<option>Июля</option>
+								<option>Августа</option>
+								<option>Сентября</option>
+								<option>Октября</option>
+								<option>Ноября</option>
+								<option>Декабря</option>
+							</select>
+							<div class="dropdowmMy m-t-5">
+								<p class="selectEvent_DateP colorB4B0B0" id="month">Января</p>
+								<img src="./imgs/arrow_down.png" alt="">
+							</div>
+						</div>
+						<input class="addProfile_Input_Date3" id="year" type="text" placeholder="1940" maxlength="4">
+					</div>
+					<div class="d-flex align-items-center">
+						<p class="fs_15 mr-3">Стаж вождения:</p>
+						<input class="addProfile_Input_Small" type="text" id="exp" placeholder="1" maxlength="2">
+						<p class="fs_15 ml-2 expWord">год</p>
+					</div>
+				</form>
+				<div class="driverProfile_SupportService">
+				   <img src="./imgs/add_Alert.png" alt="!">
+					<p>После сохранения данных, Вы не сможете их изменить. При вводе некорректных данных Вы не сможете получать скидки от партнёров.</p>
+				</div>
+				<input type="button" id="sendData" class="driverProfile_OrangeBtn" value="Отправить">
+			</div>
+		</div>
+	</main>  
+
+	<script src="./libs/constants.js"></script>
+	<script src="./libs/jquery.min.js"></script>
+	<script src="./libs/bootstrap.min.js"></script>
+	<script src="./libs/smoothTransition.js"></script>
+	<script src="./libs/pageController.js"></script>
+	<script src="./libs/modalWindow.js"></script>
+
+	<script src="./js/selectBoxOnProfileConfirm.js"></script>
+	<script src="./js/confirmProfilePage.js"></script>
+	
+</body>
+</html>

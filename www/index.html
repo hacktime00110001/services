@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+		<link rel="shortcut icon" type="shortcut icon" href="./imgs/favicon.jpg">
+
+		<link rel="stylesheet" href="./libs/bootstrap.min.css"> 
+		<link rel="stylesheet" href="./libs/preloader.css">
+
+		<link rel="stylesheet" href="./css/fonts.css">
+		<link rel="stylesheet" href="./css/main.css">
+		<link rel="stylesheet" href="./css/indexPage.css">
+	</head>
+	<body>
+		<div id="splashscreen">
+			<div id="logo"></div>
+		</div>
+		<header>
+			<div class="container">
+				<div class="row flex-column align-items-center">
+					<div class="analyticsTitle">
+						<img src="./imgs/registrationLogo.png" alt="Logo">
+						<p>Сводная аналитика</p>
+					</div>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class="container">
+				<div class="row flex-column align-items-center">		
+					<div class="row analyticsContainer" id="analyticsContainer"></div>
+					<p class="analyticsChoose">*СРАВНИ И ВЫБЕРИ</p>
+					<div class="w-100 d-flex justify-content-center">
+						<a href="./sign-in.html" class="transition">
+							<input type="button" value="Подробнее" class="analyticsBtn">
+						</a>
+					</div>
+				</div>
+			</div>
+		</main>  
+		
+		<script src="./libs/constants.js"></script>
+		<script src="./libs/jquery.min.js"></script>
+		<script src="./libs/bootstrap.min.js"></script>
+		<script src="./libs/pageController.js"></script>
+		<script src="./libs/splashscreen.js"></script>
+		<script src="./libs/modalWindow.js"></script>
+
+		<script src="./js/indexPage.js"></script>
+	</body>
+</html>
