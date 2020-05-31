@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	$(".project_name").text(APP.PROJECT_NAME);
+	$(".project_website").text(APP.PROJECT_WEBSITE);
+
 	let $phonenumber = $("#phonenumber");
 
 	$phonenumber.mask("+7 000 000 00 00");
@@ -12,64 +15,16 @@ $(document).ready(function() {
 			$phonenumber.val("+7 ");
 	});
 
-	function sendData () {
+	function sendData() {
 		$('#submit').prop('disabled', 'true');
 		if($phonenumber.val().length == 16) {
-			$.post("http://taxitime.pro/api/SignIn.php", { 
-				sendPhone : $phonenumber.val() 
-			}).done(function (dataSignIn) {
-				if(dataSignIn.length > 1) {
-					$store.setItem("currentPage", "confirmation-code.html");
-					$store.setItem("firstAuth", "0");
-					$store.setItem("userPhone", $phonenumber.val());
-					$store.setItem("password", dataSignIn);
-					$("body").fadeOut(PAGE_DELAY, function () {
-						window.location = "./confirmation-code.html";
-					});
-				} else {
-					$.post("http://taxitime.pro/api/SignUp.php", { 
-						sendPhone : $phonenumber.val()
-					}).done(function (dataSignUp) {
-						let data = JSON.parse(dataSignUp);
-						if(data[0].isReg == "1") {
-							$store.setItem("currentPage", "sign-up.html");
-							$store.setItem("firstAuth", "1");
-							$store.setItem("userPhone", $phonenumber.val());
-							$store.setItem("password", data[0].password);
-							$("body").fadeOut(PAGE_DELAY, function () {
-								window.location = "./sign-up.html";
-							});
-						} else if(data[0].isReg == "0") {
-							$store.setItem("currentPage", "confirmation-code.html");
-							$store.setItem("firstAuth", "1");
-							$store.setItem("userPhone", $phonenumber.val());
-							$store.setItem("password", data[0].password);
-							$("body").fadeOut(PAGE_DELAY, function () {
-								window.location = "./confirmation-code.html";
-							});
-						} else if(data[0].isReg == "") {
-							modalAlert("Подтвердите номер!", 3, "На ваш номер телефона был отправлен пароль!", function () {
-								$store.setItem("currentPage", "confirmation-code.html");
-								$store.setItem("firstAuth", "1");
-								$store.setItem("userPhone", $phonenumber.val());
-								$store.setItem("password", data[0].password);
-								$("body").fadeOut(PAGE_DELAY, function () {
-									window.location = "./confirmation-code.html";
-								});
-							});
-						}
-						$('#submit').prop('disabled', false);
-					}).fail(function(xhr, textStatus, error) {
-						modalAlert("Server error!", 2, "Problem with server! ["+error+"]", function () {
-							$('#submit').prop('disabled', false);
-						});
-					});
-				}
-				$('#submit').prop('disabled', false); 
-			}).fail(function(xhr, textStatus, error) {
-				modalAlert("Server error!", 2, "Problem with server! ["+error+"]", function () {
-					$('#submit').prop('disabled', false);
-				});
+			$.ajax({
+				url: API_CONTROLLERS.SIGN_IN,
+				type: 'POST',
+				dataType: 'json',
+				data: { sendPhone : { phonenumber : $phonenumber.val() } },
+				success: userExistenceCheckSuccess,
+				error: userExistenceCheckFail
 			});
 		} else {
 			modalAlert("Ошибка ввода данных", 2, "Номер телефона введен не корректно!", function () {
@@ -77,7 +32,63 @@ $(document).ready(function() {
 			});
 		}
 	}
+	
+	function userExistenceCheckSuccess(userdata, status, xhr) {
+		if(userdata.password !== null) {
+			$store.setItem("currentPage", "confirmation-code.html");
+			$store.setItem("firstAuth", "0");
+			$store.setItem("userPhone", $phonenumber.val());
+			$store.setItem("password", userdata.password);
+			$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = "./confirmation-code.html"; });
+		} else {
+			$.ajax({
+				url: API_CONTROLLERS.SIGN_UP,
+				type: 'POST',
+				dataType: 'json',
+				data: { sendPhone : { phonenumber : $phonenumber.val() } },
+				success: userNotExistenceCheckSuccess,
+				error: userNotExistenceCheckFail
+			});
+		}
+	}
+
+	function userNotExistenceCheckSuccess(userdata, status, xhr) {
+		if(userdata.isReg == "1") {
+			$store.setItem("currentPage", "sign-up.html");
+			$store.setItem("firstAuth", "1");
+			$store.setItem("userPhone", $phonenumber.val());
+			$store.setItem("password", userdata.password);
+			$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = "./sign-up.html"; });
+		} else if(userdata.isReg == "0") {
+			$store.setItem("currentPage", "confirmation-code.html");
+			$store.setItem("firstAuth", "1");
+			$store.setItem("userPhone", $phonenumber.val());
+			$store.setItem("password", userdata.password);
+			$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = "./confirmation-code.html"; });
+		} else if(userdata.isReg == "") {
+			modalAlert("Подтвердите номер!", 3, "На ваш номер телефона был отправлен пароль!", function () {
+				$store.setItem("currentPage", "confirmation-code.html");
+				$store.setItem("firstAuth", "1");
+				$store.setItem("userPhone", $phonenumber.val());
+				$store.setItem("password", userdata.password);
+				$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = "./confirmation-code.html"; });
+			});
+		}
+		$('#submit').prop('disabled', false);
+	}
+
+	function userExistenceCheckFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!", function () {
+			$('#submit').prop('disabled', false);
+		});
+	}
+
+	function userNotExistenceCheckFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, `Problem with server! ${jqXhr.statusText}`, function () {
+			$('#submit').prop('disabled', false);
+		});
+	}
 
 	$("#submit").bind("click", sendData);
-	
+
 });

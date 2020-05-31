@@ -17,9 +17,9 @@ $(window).on("load", function () {
 	if(toBoolean($session.isFirstEnter)) {
 		$("#splashscreen").css("display", "flex");
 		$("body").css("overflow", "hidden");
-		$("#splashscreen").delay(1000).fadeOut(1500);
-		$("header").delay(2500).fadeIn(1000);
-		$("main").delay(2500).fadeIn(1000);
+		$("#splashscreen").delay(1000).fadeOut(APP.SPLASHSCREEN_DELAY);
+		$("header").delay(1000 + APP.SPLASHSCREEN_DELAY).fadeIn(APP.SPLASHSCREEN_DELAY);
+		$("main").delay(1000 + APP.SPLASHSCREEN_DELAY).fadeIn(APP.SPLASHSCREEN_DELAY);
 		$("body").css("overflow", "auto");
 	} else {
 		$("#splashscreen").remove();

@@ -13,6 +13,7 @@ html {
 
 body {
 	background-color: #f6f6f6;
+	display: none;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -39,7 +40,7 @@ input[type="text"] {
 }
 
 .modal_w_alert {
-	z-index: 999999;
+	z-index: 9999999;
 }
 
 .modal_w_prompt {

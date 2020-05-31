@@ -20,25 +20,36 @@ $(document).ready(function () {
 
 	let $cityList = $("#selectCat");
 
-	$.post("http://taxitime.pro/api/Profile.php", { 
-		getCities: true
-	}).done(function (data) {
-		console.log(data);
-		var cities = data.split(",");
-		for(var i = 0; i < cities.length; i++) {
-			if(i == 0) {
-				$("#getCity").html(cities[i]);
-				$cityList.append(`<option selected>${cities[i]}</option>`);
-			} else {
-				$cityList.append(`<option>${cities[i]}</option>`);
-			}
-		}
-	}).fail(function(xhr, textStatus, error){
-		modalAlert("Server error!", 2, "Problem with server!");
+	$.ajax({
+		url: API_CONTROLLERS.PROFILE,
+		type: 'POST',
+		dataType: 'json',
+		data: { getCities : { getCities : true } },
+		success: getListOfSitiesSuccess,
+		error: getListOfSitiesFail
 	});
+
+	function getListOfSitiesSuccess(data, status, xhr) {
+		console.log(data.cities);
+		var cities = data.cities;
+		cities.forEach((item, key) => {
+			if(+key == 0) {
+				$("#getCity").html(item);
+				$cityList.append(`<option selected>${item}</option>`);
+			} else {
+				$cityList.append(`<option>${item}</option>`);
+			}
+		});
+	}
+
+	function getListOfSitiesFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!");
+	}
 
 	$("#sendData").click(function () {
 		$("#sendData").prop('disabled', true);
+
+		let user_profile_data = {}
 
 		let $city = $("#getCity").text(),
 			$name = $("#name").val(),
@@ -77,30 +88,36 @@ $(document).ready(function () {
 			let $date = $day + " " + $month + " " + $year;
 			$driveExp = $driveExp + " " + $(".expWord").text();
 
-			$.post("http://taxitime.pro/api/Profile.php", { 
-				city: $city,
-				name: $name,
-				surname: $surname,
-				patronymic: $patronymic,
-				date: $date,
-				driveExp: $driveExp,
-				phonenumber: JSON.parse($store.getItem("userdata")).phonenumber
-			}).done(function (data) {
-				let userdata = JSON.parse(data);
-				$store.clear();
-				$store.setItem("userdata", JSON.stringify(userdata));
-				modalAlert("Данные успешно обработаны!", 3, "Вы заполнили профиль!", function () {
-					$('#sendData').prop('disabled', false);
-					$store.setItem("currentPage", "profile.html");
-					$("body").fadeOut(PAGE_DELAY, function () {
-						window.location = "./profile.html";
-					});
-				}); 
-			}).fail(function(xhr, textStatus, error){
-				modalAlert("Server error!", 2, "Problem with server!", function () {
-					$('#sendData').prop('disabled', false);
-				});
+			user_profile_data.city = $city;
+			user_profile_data.name = $name;
+			user_profile_data.surname = $surname;
+			user_profile_data.patronymic = $patronymic;
+			user_profile_data.date = $date;
+			user_profile_data.driveExp = $driveExp;
+			user_profile_data.phonenumber = JSON.parse($store.getItem("userdata")).phonenumber;
+
+			$.ajax({
+				url: API_CONTROLLERS.PROFILE,
+				type: 'POST',
+				dataType: 'json',
+				data: { userdata : user_profile_data },
+				success: changeUserStatusSuccess,
+				error: changeUserStatusFail
 			});
+		}
+
+		function changeUserStatusSuccess(result, status, xhr) {
+			$store.clear();
+			$store.setItem("userdata", JSON.stringify(result.userdata));
+			modalAlert("Данные успешно обработаны!", 3, "Вы заполнили профиль!", function () {
+				$('#sendData').prop('disabled', false);
+				$store.setItem("currentPage", "profile.html");
+				$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = "./profile.html"; });
+			});
+		}
+
+		function changeUserStatusFail(jqXhr, textStatus, errorMessage) {
+			modalAlert("Server error!", 2, "Problem with server!", function () { $('#sendData').prop('disabled', false); });
 		}
 
 	});

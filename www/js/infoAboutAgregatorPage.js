@@ -1,13 +1,17 @@
 $(document).ready(function () {
 
 	let $store = localStorage,
-		$startOffset = 0;
+		$defaultPartnerLoadLimit = APP.LOAD_LIMIT.PARTNERS.DEFAULT,
+		$searchPartnerLoadLimit = APP.LOAD_LIMIT.PARTNERS.SEARCH,
+		$filtredPartnerLoadLimit = APP.LOAD_LIMIT.PARTNERS.FILTERED,
+		$defaultLoadBy = APP.LOAD_BY.PARTNERS.DEFAULT,
+		$searchLoadBy = APP.LOAD_BY.PARTNERS.SEARCH,
+		$filterLoadBy = APP.LOAD_LIMIT.PARTNERS.FILTERED,
+		$startOffset = APP.OFFSET.PARTNERS;
 
 	$store.agregatorMode = 0;
 
-	$("#agregatorSearchBtn").on("click", function() {
-		$("#agregatorSearchContainer").fadeToggle("slow", "linear");
-	}); 
+	$("#agregatorSearchBtn").on("click", function() { $("#agregatorSearchContainer").fadeToggle("slow", "linear"); }); 
 
 	$("#clean_filter").click(function () {
 		$("input[type='radio']").prop("checked", false);
@@ -52,36 +56,39 @@ $(document).ready(function () {
 				winScrollTop = $(this).scrollTop();
 				if(winScrollTop > scrollToElem && f) {
 					f = false;
-					$('.targetElemScroll').removeClass('targetElemScroll');
-					$startOffset += 10;
-					if($store.agregatorMode == 0)
-						loadDefaultContent(10, $startOffset);
-					else if($store.agregatorMode == 1)
-						loadSearchResultData(10, $startOffset);
-					else if($store.agregatorMode == 2)
-						loadFiltredData(10, $startOffset);
+					$('.targetElemScroll').removeClass('targetElemScroll');		
+					if($store.agregatorMode == 0) {
+						$startOffset += $defaultLoadBy;
+						loadDefaultContent($defaultPartnerLoadLimit, $startOffset);
+					} else if($store.agregatorMode == 1) {
+						$startOffset += $searchLoadBy;
+						loadSearchResultData($searchPartnerLoadLimit, $startOffset);
+					} else if($store.agregatorMode == 2) {
+						$startOffset += $filterLoadBy;
+						loadFiltredData($filtredPartnerLoadLimit, $startOffset);
+					}
 				}
 			}
 		});
 
 	// Get content //
 
-	loadDefaultContent(10, 0);
+	loadDefaultContent($defaultPartnerLoadLimit, $startOffset);
 
 	// Get search content //
 	
 	$("#searchSub").click(function () {
 		$store.agregatorMode = 1;
-		$startOffset = 0;
-		loadSearchResultData(10, 0);
+		$startOffset = APP.OFFSET.PARTNERS;
+		loadSearchResultData($searchPartnerLoadLimit, $startOffset);
 	});
 
 	// Get filter content //
 	
 	$("#find_by_filter").click(function () {
 		$store.agregatorMode = 2;
-		$startOffset = 0;
-		loadFiltredData(10, 0);
+		$startOffset = APP.OFFSET.PARTNERS;
+		loadFiltredData($filtredPartnerLoadLimit, $startOffset);
 	});
 
 	// Load additional content 
@@ -89,168 +96,305 @@ $(document).ready(function () {
 	function loadDefaultContent(limit, offset) {
 		$("#contentPartners").append('<div class="lds-ring"><div></div><div></div><div></div><div>');
 
-		$.post("http://taxitime.pro/api/MainData.php", { 
-			getInfoAboutAgregator: JSON.stringify({
-				"id": $store.getItem("lastVisitAgregator"),
-				"limit": limit + "",
-				"offset": offset + "",
-				"cityName": JSON.parse($store.getItem('userdata')).city
-			})
-		}).done(function (data) {
+		$.ajax({
+			url: API_CONTROLLERS.MAIN_DATA,
+			type: 'POST',
+			dataType: 'json',
+			data: { getInfoAboutAgregator: { "id": +$store.getItem("lastVisitAgregator"), "limit": limit, "offset": offset, "city": JSON.parse($store.getItem('userdata')).city } },
+			success: loadDefaultContentSuccess,
+			error: loadDefaultContentFail
+		});
+		
+	}
+
+	function loadDefaultContentSuccess(partnerdata, status, xhr) {
 			$(".lds-ring").remove();
 
-			let contentData = JSON.parse(data);
-			if(offset == 0)
-				$(".analyticsTitle p").html(contentData[1].name);
+			if(partnerdata.agregatorName != undefined) {
+				$(".analyticsTitle p").html(partnerdata.agregatorName);
+				delete partnerdata.agregatorName;
+			}
 
-			if(contentData[0].length != 0) { 
-				for(i = 0; i < contentData[0].length; i++) {
-					if(i == 9)
-						$("#contentPartners").append('<div class="w-100 p-5 targetElemScroll"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+contentData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+contentData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+contentData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+contentData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+contentData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+contentData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+contentData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+contentData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
-					else
-						$("#contentPartners").append('<div class="w-100 p-5"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+contentData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+contentData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+contentData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+contentData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+contentData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+contentData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+contentData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+contentData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
+			let parentDataLength = Object.keys(partnerdata).length;
+
+			if(parentDataLength != 0) { 
+				for(i = 0; i < parentDataLength; i++) {
+					let targetValue = (i == $defaultPartnerLoadLimit - 1) ? "targetElemScroll" : "";
+					$("#contentPartners").append(`
+						<div class="w-100 p-5 ${targetValue}">
+							<div class="analyticsBox">
+								<div class="w-100 d-flex align-items-center justify-content-between">
+									<p class="agregatorBox_name">${partnerdata[i].name}</p>
+									<p class="agregatorBox_rating">Рейтинг: 
+										<span id="reting" class="reting">${partnerdata[i].rating}</span>
+									</p>
+								</div>
+								<div class="w-100 row justify-content-between p-10">
+								<div class="agregatorBox_conditions">
+									<p class="agregatorBox_title">Условия работы</p>
+									<div class="agregatorBox_hr"></div>
+									<ul>
+										<li>
+											<img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="fw_bold fs_20">
+												<span>Комиссия парка - </span>${partnerdata[i].park_commission} %
+											</p>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<div>
+												<p>
+													<span>Выплаты:</span>
+												</p>
+												<ul>
+													<li>
+														<p>${partnerdata[i].payment_types}</p>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li class="d-flex flex-column">
+											<div class="d-flex">
+												<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+												<p>
+													<span>Каналы тех. поддержки:</span>
+												</p>
+											</div>
+											<div class="agreratorBox_supportImgs" data-imgs-id="${partnerdata[i].id}"></div>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="w-60">
+												<span>Парковые автомобили:</span>
+											</p>
+											<div class="parkCar_Imgs" data-cars-id="${partnerdata[i].id}"></div>
+										</li>
+									</ul>
+								</div>
+								<div class="agregatorBox_agregators">
+									<p class="agregatorBox_title">Агрегаторы</p>
+									<div class="agregatorBox_hr"></div>
+									<div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id="${partnerdata[i].id}"></div>
+								</div>
+							</div>
+							<a href="./info-about-partner.html" class="ttt transition" data-parnter-id="${partnerdata[i].id}">
+								<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти">
+							</a>
+							</div>
+						</div>
+					`);
+
+					$chanelsContent = $(`.agreratorBox_supportImgs[data-imgs-id="${partnerdata[i].id}"]`);
+					$chanelsArr = partnerdata[i].support_chanels;
+					for(j = 0; j < Object.keys($chanelsArr).length; j++) {
+						$chanelsContent.append(`
+							<img src="${$chanelsArr[j].logo_url}" alt="${$chanelsArr[j].name}">`);
+					}
 					
-					$chanelsContent = $(".agreratorBox_supportImgs[data-imgs-id='"+contentData[0][i].id+"']");
-					for(j = 0; j < contentData[0][i][0].support_channels.length; j++)
-						$chanelsContent.append("<img src='"+contentData[0][i][0].support_channels[j].logo_url+"' alt='"+contentData[0][i][0].support_channels[j].name+"'>");
-					
-					$cars = contentData[0][i].park_cars.split(";");
+					$cars = partnerdata[i].park_cars.split(";");
 					if($cars[0] == "none")
-						$(".parkCar_Imgs[data-cars-id='"+contentData[0][i].id+"']").append("<img src='./imgs/parkCar_no.png' alt='No'>");
+						$(`.parkCar_Imgs[data-cars-id="${partnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_no.png' alt='No'>
+						`);
 					else
-						$(".parkCar_Imgs[data-cars-id='"+contentData[0][i].id+"']").append("<img src='./imgs/parkCar_yes.png' alt='Yes'>");
+						$(`.parkCar_Imgs[data-cars-id="${partnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_yes.png' alt='Yes'>
+						`);
 
-					$agregatorsContent = $("#agregatorBox_agregatorsList[data-agregators-id='"+contentData[0][i].id+"']");
-					for(j = 0; j < contentData[0][i][1].some_info_agregators.length; j++)
-						$agregatorsContent.append("<div class='col30pr'><img src='"+contentData[0][i][1].some_info_agregators[j].logo_url+"' alt='"+contentData[0][i][1].some_info_agregators[j].name+"'></div>");
-					
+					$agregatorsContent = $(`#agregatorBox_agregatorsList[data-agregators-id="${partnerdata[i].id}"]`);
+					$agregatorsArr = partnerdata[i].connected_agregators;
+					for(j = 0; j < Object.keys($agregatorsArr).length; j++)
+						$agregatorsContent.append(`
+							<div class="col30pr">
+								<img src="${$agregatorsArr[j].logo_url}" alt="${$agregatorsArr[j].name}">
+							</div>
+						`);
 				}
-			} else if(contentData[0].length == 0 && offset == 0) {
+			} else if(parentDataLength == 0 && $startOffset == 0) {
 				$("#main_content").html('<div class="row analyticsContainer" style="height: 100vh;display: flex;align-content: center;"><h2 style="color: #333333; text-align: center;">У данного агрегатора нет партнеров!</h2></div>');
 			}
 
 			$("a").click(function () {
 				attrValue = $(this).attr('data-parnter-id');
-				if(attrValue != undefined) {
-					$store.setItem("lastVisitPartner", attrValue);
-				}
+				if(attrValue != undefined) { $store.setItem("lastVisitPartner", attrValue); }
 			});
 
 			$(".transition").click(function (e) {
 				e.preventDefault();
 				linkLocation = this.href;
-				$("body").fadeOut(PAGE_DELAY, function () {
-					window.location = linkLocation;
-				});
+				$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = linkLocation; });
 			});
 
 			retingUpdate();
 
 			f = true;
-			if($startOffset > contentData[0].length + limit) {
-				f = false;
-			}
+			if($startOffset > parentDataLength + $defaultPartnerLoadLimit) { f = false; }		
+	}
 
-		}).fail(function(xhr, textStatus, error) {
-			modalAlert("Server error!", 2, "Problem with server!");
-		});
+	function loadDefaultContentFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!");
 	}
 
 	function loadSearchResultData(limit, offset) {
 		$("#contentPartners").append('<div class="lds-ring"><div></div><div></div><div></div><div>');
+		
+		let inputSearchData = $("#search").val();
 
-		var searchRessultDiv = $(".search_result");
-		var countOfRecordComponent = $("#count-of-record");
-		var contentDiv = $("#contentPartners");
-		var inputSearchData = $("#search").val();
-
-		if(inputSearchData.replace(/\s+/g, '') == " " || inputSearchData.replace(/\s+/g, '') == "") {
+		if(inputSearchData.replace(/\s+/gi, '') == " " || inputSearchData.replace(/\s+/gi, '') == "") {
 			modalAlert("Ошибка поиска!", 1, "В поиск ничего не введено!");
 		} else {
-			$.post("http://taxitime.pro/api/MainData.php", { 
-				searchData: JSON.stringify({
-					"id": $store.getItem("lastVisitAgregator"),
-					"limit": limit + "",
-					"offset": offset + "",
-					"name": inputSearchData.replace(/\s+/g, ''),
-					"cityName": JSON.parse($store.getItem('userdata')).city
-				})
-			}).done(function (data) {
-				if(offset == 0) {
-					contentDiv.html("");
-				}
-				$(".lds-ring").remove();
-
-				searchRessultDiv.css("display", "block");
-
-				let searchResultData = JSON.parse(data);
-				searchRessultDiv.html('<p>По Вашему запросу найдено <b id="count-of-record">#</b> партнёров</p>');
-				countOfRecordComponent = $("#count-of-record");
-
-				if(offset == 0)
-					countOfRecordComponent.html(searchResultData[1].fullCount);
-
-				if(searchResultData[0].length != 0) { 
-					for(i = 0; i < searchResultData[0].length; i++) {
-						if(i == 9)
-							contentDiv.append('<div class="w-100 p-5 targetElemScroll"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+searchResultData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+searchResultData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+searchResultData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+searchResultData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+searchResultData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+searchResultData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+searchResultData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+searchResultData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
-						else
-							contentDiv.append('<div class="w-100 p-5"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+searchResultData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+searchResultData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+searchResultData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+searchResultData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+searchResultData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+searchResultData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+searchResultData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+searchResultData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
-						
-						$chanelsContent = $(".agreratorBox_supportImgs[data-imgs-id='"+searchResultData[0][i].id+"']");
-						for(j = 0; j < searchResultData[0][i][0].support_channels.length; j++)
-							$chanelsContent.append("<img src='"+searchResultData[0][i][0].support_channels[j].logo_url+"' alt='"+searchResultData[0][i][0].support_channels[j].name+"'>");
-						
-						$cars = searchResultData[0][i].park_cars.split(";");
-						if($cars[0] == "none")
-							$(".parkCar_Imgs[data-cars-id='"+searchResultData[0][i].id+"']").append("<img src='./imgs/parkCar_no.png' alt='No'>");
-						else
-							$(".parkCar_Imgs[data-cars-id='"+searchResultData[0][i].id+"']").append("<img src='./imgs/parkCar_yes.png' alt='Yes'>");
-
-						$agregatorsContent = $("#agregatorBox_agregatorsList[data-agregators-id='"+searchResultData[0][i].id+"']");
-						for(j = 0; j < searchResultData[0][i][1].some_info_agregators.length; j++)
-							$agregatorsContent.append("<div class='col30pr'><img src='"+searchResultData[0][i][1].some_info_agregators[j].logo_url+"' alt='"+searchResultData[0][i][1].some_info_agregators[j].name+"'></div>");
-						
-					}
-				} else {
-					searchRessultDiv.html("<p>По запросу <b>\"" + inputSearchData + "\" </b> нечего не найдено!</p>");
-				}
-
-				$("a").click(function () {
-					attrValue = $(this).attr('data-parnter-id');
-					if(attrValue != undefined) {
-						$store.setItem("lastVisitPartner", attrValue);
-					}
-				});
-
-				$(".transition").click(function (e) {
-					e.preventDefault();
-					linkLocation = this.href;
-					$("body").fadeOut(PAGE_DELAY, function () {
-						window.location = linkLocation;
-					});
-				});
-
-				retingUpdate();
-
-				f = true;
-				if($startOffset > searchResultData[0].length + limit) {
-					f = false;
-				}
-			}).fail(function(xhr, textStatus, error) {
-				modalAlert("Server error!", 2, "Problem with server!");
+			$.ajax({
+				url: API_CONTROLLERS.MAIN_DATA,
+				type: 'POST',
+				dataType: 'json',
+				data: { search: { "id": +$store.getItem("lastVisitAgregator"), "limit": limit, "offset": offset, "search_data": inputSearchData.replace(/\s+/g, ''), "city": JSON.parse($store.getItem('userdata')).city } },
+				success: loadSearchResultSuccess,
+				error: loadSearchResultFail
 			});
 		}
 	}
 
+	function loadSearchResultSuccess(searchedPartnerdata, status, xhr) {
+		let searchResultComponent = $(".search_result"),
+			inputSearchData = $("#search").val();
+
+		if($startOffset == 0) $("#contentPartners").html("");
+		$(".lds-ring").remove();
+
+		searchResultComponent.css("display", "block");
+		searchResultComponent.html('<p>По Вашему запросу найдено <b id="count-of-record">#</b> партнёров</p>');
+
+		if(searchedPartnerdata.full_count != undefined) {
+			$("#count-of-record").html(searchedPartnerdata.full_count);
+			delete searchedPartnerdata.full_count;
+		}
+
+		let searchedPartnerdataLength = Object.keys(searchedPartnerdata).length;
+
+		if(searchedPartnerdataLength != 0) { 
+			for(i = 0; i < searchedPartnerdataLength; i++) {
+				let targetValue = (i == $searchPartnerLoadLimit - 1) ? "targetElemScroll" : "";
+				$("#contentPartners").append(`
+						<div class="w-100 p-5 ${targetValue}">
+							<div class="analyticsBox">
+								<div class="w-100 d-flex align-items-center justify-content-between">
+									<p class="agregatorBox_name">${searchedPartnerdata[i].name}</p>
+									<p class="agregatorBox_rating">Рейтинг: 
+										<span id="reting" class="reting">${searchedPartnerdata[i].rating}</span>
+									</p>
+								</div>
+								<div class="w-100 row justify-content-between p-10">
+								<div class="agregatorBox_conditions">
+									<p class="agregatorBox_title">Условия работы</p>
+									<div class="agregatorBox_hr"></div>
+									<ul>
+										<li>
+											<img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="fw_bold fs_20">
+												<span>Комиссия парка - </span>${searchedPartnerdata[i].park_commission} %
+											</p>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<div>
+												<p>
+													<span>Выплаты:</span>
+												</p>
+												<ul>
+													<li>
+														<p>${searchedPartnerdata[i].payment_types}</p>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li class="d-flex flex-column">
+											<div class="d-flex">
+												<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+												<p>
+													<span>Каналы тех. поддержки:</span>
+												</p>
+											</div>
+											<div class="agreratorBox_supportImgs" data-imgs-id="${searchedPartnerdata[i].id}"></div>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="w-60">
+												<span>Парковые автомобили:</span>
+											</p>
+											<div class="parkCar_Imgs" data-cars-id="${searchedPartnerdata[i].id}"></div>
+										</li>
+									</ul>
+								</div>
+								<div class="agregatorBox_agregators">
+									<p class="agregatorBox_title">Агрегаторы</p>
+									<div class="agregatorBox_hr"></div>
+									<div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id="${searchedPartnerdata[i].id}"></div>
+								</div>
+							</div>
+							<a href="./info-about-partner.html" class="ttt transition" data-parnter-id="${searchedPartnerdata[i].id}">
+								<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти">
+							</a>
+							</div>
+						</div>
+					`);
+
+					$chanelsContent = $(`.agreratorBox_supportImgs[data-imgs-id="${searchedPartnerdata[i].id}"]`);
+					$chanelsArr = searchedPartnerdata[i].support_chanels;
+					for(j = 0; j < Object.keys($chanelsArr).length; j++) {
+						$chanelsContent.append(`
+							<img src="${$chanelsArr[j].logo_url}" alt="${$chanelsArr[j].name}">`);
+					}
+					
+					$cars = searchedPartnerdata[i].park_cars.split(";");
+					if($cars[0] == "none")
+						$(`.parkCar_Imgs[data-cars-id="${searchedPartnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_no.png' alt='No'>
+						`);
+					else
+						$(`.parkCar_Imgs[data-cars-id="${searchedPartnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_yes.png' alt='Yes'>
+						`);
+
+					$agregatorsContent = $(`#agregatorBox_agregatorsList[data-agregators-id="${searchedPartnerdata[i].id}"]`);
+					$agregatorsArr = searchedPartnerdata[i].connected_agregators;
+					for(j = 0; j < Object.keys($agregatorsArr).length; j++)
+						$agregatorsContent.append(`
+							<div class="col30pr">
+								<img src="${$agregatorsArr[j].logo_url}" alt="${$agregatorsArr[j].name}">
+							</div>
+						`);
+			}
+		} else {
+			searchResultComponent.html("<p>По запросу <b>\"" + inputSearchData + "\" </b> нечего не найдено!</p>");
+		}
+
+		$("a").click(function () {
+			attrValue = $(this).attr('data-parnter-id');
+			if(attrValue != undefined) { $store.setItem("lastVisitPartner", attrValue); }
+		});
+
+		$(".transition").click(function (e) {
+			e.preventDefault();
+			linkLocation = this.href;
+			$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = linkLocation; });
+		});
+
+		retingUpdate();
+
+		f = true;
+		if($startOffset > searchedPartnerdataLength + $searchPartnerLoadLimit) { f = false; }
+	}
+
+	function loadSearchResultFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!");
+	}
+
 	function loadFiltredData(limit, offset) {
 		$("#contentPartners").append('<div class="lds-ring"><div></div><div></div><div></div><div>');
-
 		$("#find_by_filter").prop("disabled", true);
 
-		let searchRessultDiv = $(".search_result"),
-			countOfRecordComponent = $("#count-of-record"),
-			contentDiv = $("#contentPartners");
+		let filtredResultComponent = $(".search_result"),
+			countOfRecordComponent = $("#count-of-record");
 
 		let filterData = {};
 
@@ -267,9 +411,9 @@ $(document).ready(function () {
 		$.each($(".park_cars:checked"), function () { parkCars.push($(this).val()); });		
 
 		filterData.id = $store.getItem("lastVisitAgregator");
-		filterData.limit = limit + "";
-		filterData.offset = offset + "";
-		filterData.cityName = JSON.parse($store.getItem('userdata')).city;
+		filterData.limit = limit;
+		filterData.offset = offset;
+		filterData.city = JSON.parse($store.getItem('userdata')).city;
 		filterData.commissionData = commissionData;
 		filterData.paymentTypes = paymentTypes;
 		filterData.supportChannels = supportChannels;
@@ -293,74 +437,147 @@ $(document).ready(function () {
 			$("#find_by_filter").prop("disabled", false);
 		}
 
-		$.post("http://taxitime.pro/api/MainData.php", { 
-			filterData: JSON.stringify(filterData)
-		}).done(function (data) {
-			if(offset == 0) {
-				contentDiv.html("");
-				searchRessultDiv.css("display", "block");
-				searchRessultDiv.html('<p>По Вашему запросу найдено <b id="count-of-record">#</b> партнёров</p>');
-				countOfRecordComponent = $("#count-of-record");
-			}
-			$(".lds-ring").remove();
-
-			let filterResultData = JSON.parse(data);
-
-			if(offset == 0) {
-				countOfRecordComponent.html(filterResultData[1].fullCount);
-			}
-
-			if(filterResultData[0].length != 0) { 
-				for(i = 0; i < filterResultData[0].length; i++) {
-					if(i == 9)
-						contentDiv.append('<div class="w-100 p-5 targetElemScroll"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+filterResultData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+filterResultData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+filterResultData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+filterResultData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+filterResultData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+filterResultData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+filterResultData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+filterResultData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
-					else
-						contentDiv.append('<div class="w-100 p-5"><div class="analyticsBox"><div class="w-100 d-flex align-items-center justify-content-between"><p class="agregatorBox_name">'+filterResultData[0][i].name+'</p><p class="agregatorBox_rating">Рейтинг: <span id="reting" class="reting">'+filterResultData[0][i].rating+'</span></p></div><div class="w-100 row justify-content-between p-10"><div class="agregatorBox_conditions"><p class="agregatorBox_title">Условия работы</p><div class="agregatorBox_hr"></div><ul><li><img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="fw_bold fs_20"><span>Комиссия парка - </span>'+filterResultData[0][i].park_commission+' %</p></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><div><p><span>Выплаты:</span></p><ul><li><p>'+filterResultData[0][i].payment_types+'</p></li></ul></div></li><li class="d-flex flex-column"><div class="d-flex"><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p><span>Каналы тех. поддержки:</span></p></div><div class="agreratorBox_supportImgs" data-imgs-id=\''+filterResultData[0][i].id+'\'></div></li><li><img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;"><p class="w-60"><span>Парковые автомобили:</span></p><div class="parkCar_Imgs" data-cars-id=\''+filterResultData[0][i].id+'\'></div></li></ul></div><div class="agregatorBox_agregators"><p class="agregatorBox_title">Агрегаторы</p><div class="agregatorBox_hr"></div><div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id=\''+filterResultData[0][i].id+'\'></div></div></div><a href="./info-about-partner.html" class="ttt transition" data-parnter-id='+filterResultData[0][i].id+'><input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти"></a></div></div>');
-					
-					$chanelsContent = $(".agreratorBox_supportImgs[data-imgs-id='"+filterResultData[0][i].id+"']");
-					for(j = 0; j < filterResultData[0][i][0].support_channels.length; j++)
-						$chanelsContent.append("<img src='"+filterResultData[0][i][0].support_channels[j].logo_url+"' alt='"+filterResultData[0][i][0].support_channels[j].name+"'>");
-					
-					$cars = filterResultData[0][i].park_cars.split(";");
-					if($cars[0] == "none")
-						$(".parkCar_Imgs[data-cars-id='"+filterResultData[0][i].id+"']").append("<img src='./imgs/parkCar_no.png' alt='No'>");
-					else
-						$(".parkCar_Imgs[data-cars-id='"+filterResultData[0][i].id+"']").append("<img src='./imgs/parkCar_yes.png' alt='Yes'>");
-
-					$agregatorsContent = $("#agregatorBox_agregatorsList[data-agregators-id='"+filterResultData[0][i].id+"']");
-					for(j = 0; j < filterResultData[0][i][1].some_info_agregators.length; j++)
-						$agregatorsContent.append("<div class='col30pr'><img src='"+filterResultData[0][i][1].some_info_agregators[j].logo_url+"' alt='"+filterResultData[0][i][1].some_info_agregators[j].name+"'></div>");
-					
-				}
-			} else {
-				searchRessultDiv.html("<p>По выбраным Вами фильтрам нечего не найдено!</p>");
-			}
-
-			$("a").click(function () {
-				attrValue = $(this).attr('data-parnter-id');
-				if(attrValue != undefined) {
-					$store.setItem("lastVisitPartner", attrValue);
-				}
-			});
-
-			$(".transition").click(function (e) {
-				e.preventDefault();
-				linkLocation = this.href;
-				$("body").fadeOut(PAGE_DELAY, function () {
-					window.location = linkLocation;
-				});
-			});
-
-			retingUpdate();
-
-			f = true;
-			if($startOffset > filterResultData[0].length + limit) {
-				f = false;
-			}
-
-		}).fail(function(xhr, textStatus, error) {
-			modalAlert("Server error!", 2, "Problem with server!");
+		$.ajax({
+			url: API_CONTROLLERS.MAIN_DATA,
+			type: 'POST',
+			dataType: 'json',
+			data: { filterData: filterData },
+			success: loadFiltredDataSuccess,
+			error: loadFiltredDataFail
 		});
+
+	}
+
+	function loadFiltredDataSuccess(filtredPartnerdata, status, xhr) {
+		let filtredResultComponent = $(".search_result");
+
+		if(filtredPartnerdata.full_count != undefined) {
+			$("#contentPartners").html("");
+			filtredResultComponent.css("display", "block");
+			filtredResultComponent.html(`<p>По Вашему запросу найдено <b id="count-of-record">${filtredPartnerdata.full_count}</b> партнёров</p>`);
+			delete filtredPartnerdata.full_count;
+		}
+
+		$(".lds-ring").remove();
+
+		let filtredPartnerdataLength = Object.keys(filtredPartnerdata).length;
+
+		if(filtredPartnerdataLength != 0) { 
+			for(i = 0; i < filtredPartnerdataLength; i++) {
+				let targetValue = (i == $filtredPartnerLoadLimit - 1) ? "targetElemScroll" : "";
+				$("#contentPartners").append(`
+						<div class="w-100 p-5 ${targetValue}">
+							<div class="analyticsBox">
+								<div class="w-100 d-flex align-items-center justify-content-between">
+									<p class="agregatorBox_name">${filtredPartnerdata[i].name}</p>
+									<p class="agregatorBox_rating">Рейтинг: 
+										<span id="reting" class="reting">${filtredPartnerdata[i].rating}</span>
+									</p>
+								</div>
+								<div class="w-100 row justify-content-between p-10">
+								<div class="agregatorBox_conditions">
+									<p class="agregatorBox_title">Условия работы</p>
+									<div class="agregatorBox_hr"></div>
+									<ul>
+										<li>
+											<img class="w-9 h-10 mr-10 mt-3" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="fw_bold fs_20">
+												<span>Комиссия парка - </span>${filtredPartnerdata[i].park_commission} %
+											</p>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<div>
+												<p>
+													<span>Выплаты:</span>
+												</p>
+												<ul>
+													<li>
+														<p>${filtredPartnerdata[i].payment_types}</p>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li class="d-flex flex-column">
+											<div class="d-flex">
+												<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+												<p>
+													<span>Каналы тех. поддержки:</span>
+												</p>
+											</div>
+											<div class="agreratorBox_supportImgs" data-imgs-id="${filtredPartnerdata[i].id}"></div>
+										</li>
+										<li>
+											<img class="w-9 h-10 mr-10" src="./imgs/agreratorBox_li.png" alt="&#10004;">
+											<p class="w-60">
+												<span>Парковые автомобили:</span>
+											</p>
+											<div class="parkCar_Imgs" data-cars-id="${filtredPartnerdata[i].id}"></div>
+										</li>
+									</ul>
+								</div>
+								<div class="agregatorBox_agregators">
+									<p class="agregatorBox_title">Агрегаторы</p>
+									<div class="agregatorBox_hr"></div>
+									<div class="row agregatorBox_agregatorsList" id="agregatorBox_agregatorsList" data-agregators-id="${filtredPartnerdata[i].id}"></div>
+								</div>
+							</div>
+							<a href="./info-about-partner.html" class="ttt transition" data-parnter-id="${filtredPartnerdata[i].id}">
+								<input type="button" class="driverProfile_OrangeBtn max-w-275 mt-0 mb-5" value="Перейти">
+							</a>
+							</div>
+						</div>
+					`);
+
+					$chanelsContent = $(`.agreratorBox_supportImgs[data-imgs-id="${filtredPartnerdata[i].id}"]`);
+					$chanelsArr = filtredPartnerdata[i].support_chanels;
+					for(j = 0; j < Object.keys($chanelsArr).length; j++) {
+						$chanelsContent.append(`
+							<img src="${$chanelsArr[j].logo_url}" alt="${$chanelsArr[j].name}">`);
+					}
+					
+					$cars = filtredPartnerdata[i].park_cars.split(";");
+					if($cars[0] == "none")
+						$(`.parkCar_Imgs[data-cars-id="${filtredPartnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_no.png' alt='No'>
+						`);
+					else
+						$(`.parkCar_Imgs[data-cars-id="${filtredPartnerdata[i].id}"]`).append(`
+							<img src='./imgs/parkCar_yes.png' alt='Yes'>
+						`);
+
+					$agregatorsContent = $(`#agregatorBox_agregatorsList[data-agregators-id="${filtredPartnerdata[i].id}"]`);
+					$agregatorsArr = filtredPartnerdata[i].connected_agregators;
+					for(j = 0; j < Object.keys($agregatorsArr).length; j++)
+						$agregatorsContent.append(`
+							<div class="col30pr">
+								<img src="${$agregatorsArr[j].logo_url}" alt="${$agregatorsArr[j].name}">
+							</div>
+						`);
+			}
+		} else {
+			filtredResultComponent.html("<p>По выбраным Вами фильтрам нечего не найдено!</p>");
+		}
+
+		$("a").click(function () {
+			attrValue = $(this).attr('data-parnter-id');
+			if(attrValue != undefined) { $store.setItem("lastVisitPartner", attrValue); }
+		});
+
+		$(".transition").click(function (e) {
+			e.preventDefault();
+			linkLocation = this.href;
+			$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = linkLocation; });
+		});
+
+		retingUpdate();
+
+		f = true;
+		if($startOffset > filtredPartnerdataLength + $filtredPartnerLoadLimit) { f = false; }
+	}
+
+	function loadFiltredDataFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!");
 	}
 
 });
