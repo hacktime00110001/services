@@ -1,2 +1,0 @@
-# BipBip
-Сommercial project
