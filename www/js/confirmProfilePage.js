@@ -30,7 +30,6 @@ $(document).ready(function () {
 	});
 
 	function getListOfSitiesSuccess(data, status, xhr) {
-		console.log(data.cities);
 		var cities = data.cities;
 		cities.forEach((item, key) => {
 			if(+key == 0) {

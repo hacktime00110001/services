@@ -29,6 +29,15 @@
 	</header>
 	
 	<main>
+		<form style="max-width: 275px;width: 100%; margin: auto;" action="" method="post">
+			<div class="posRel">
+				<select onclick="selectOnClick(this)" onfocusout="selectOnFocusOut(this)" id="selectCat" class="w-100 op-0-0 selectEvent"></select>
+				<div class="dropdowmMy" style="margin-top: 15px;">
+					<p id="getCity">None</p>
+					<img src="./imgs/arrow_down.png" alt="">
+				</div>
+			</div>
+		</form>
 		<div class="container">
 			<div class="row flex-column align-items-center p-20" id="discContent"></div>
 			<div class="row flex-column align-items-center mb-20">
@@ -46,6 +55,7 @@
 	<script src="./libs/modalWindow.js"></script>
 	<script src="./libs/jquery.flip.js"></script>
 	
+	<script src="./js/selectBoxOnProfileConfirm.js"></script>
 	<script src="./js/discAndBonPage.js"></script>
 
 	</body>
