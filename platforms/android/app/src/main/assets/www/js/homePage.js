@@ -3,11 +3,53 @@ $(document).ready(function () {
 
 	$("#analyticsContainer").append('<div class="lds-ring"><div></div><div></div><div></div><div>');
 
+	let $cityList = $("#selectCat");
+
+	let user_store_data = JSON.parse($store.getItem("userdata"));
+	let current_city = user_store_data.city;
+
+	$("#selectCat").bind("change", function () {
+		current_city = $("#getCity").text();
+		$.ajax({
+			url: API_CONTROLLERS.MAIN_DATA,
+			type: 'POST',
+			dataType: 'json',
+			data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS } },
+			success: homepageLoadSuccess,
+			error: homepageLoadFail
+		});
+	});
+
+	$.ajax({
+		url: API_CONTROLLERS.PROFILE,
+		type: 'POST',
+		dataType: 'json',
+		data: { getCities : { getCities : true } },
+		success: getListOfSitiesSuccess,
+		error: getListOfSitiesFail
+	});
+
+	function getListOfSitiesSuccess(data, status, xhr) {
+		var cities = data.cities;
+		cities.forEach((item, key) => {
+			if(item == current_city) {
+				$("#getCity").html(item);
+				$cityList.append(`<option selected>${item}</option>`);
+			} else {
+				$cityList.append(`<option>${item}</option>`);
+			}
+		});
+	}
+
+	function getListOfSitiesFail(jqXhr, textStatus, errorMessage) {
+		modalAlert("Server error!", 2, "Problem with server!");
+	}
+
 	$.ajax({
 		url: API_CONTROLLERS.MAIN_DATA,
 		type: 'POST',
 		dataType: 'json',
-		data: { getAgregatorsData : { "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS } },
+		data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS } },
 		success: homepageLoadSuccess,
 		error: homepageLoadFail
 	});
@@ -16,6 +58,12 @@ $(document).ready(function () {
 		$("#analyticsContainer").html("");
 
 		let $content = $("#analyticsContainer");
+
+		$content.html("");
+
+		if(userdata.length == 0) {
+			$content.html(`<div style="width: 85%; max-width: 275px; margin:auto; text-align: center;">По данному городу ничего не найдено!</div>`);
+		}
 
 		for(i = 0; i < userdata.length; i++)
 			$content.append(`
