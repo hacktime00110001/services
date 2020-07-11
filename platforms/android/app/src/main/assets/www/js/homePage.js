@@ -14,7 +14,7 @@ $(document).ready(function () {
 			url: API_CONTROLLERS.MAIN_DATA,
 			type: 'POST',
 			dataType: 'json',
-			data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS } },
+			data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS, "page": "home" } },
 			success: homepageLoadSuccess,
 			error: homepageLoadFail
 		});
@@ -49,12 +49,13 @@ $(document).ready(function () {
 		url: API_CONTROLLERS.MAIN_DATA,
 		type: 'POST',
 		dataType: 'json',
-		data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS } },
+		data: { getAgregatorsData : { "city": current_city, "limit": APP.LOAD_LIMIT.AGREGATORS.HOMEPAGE, "offset": APP.OFFSET.AGREGATORS, "page": "home" } },
 		success: homepageLoadSuccess,
 		error: homepageLoadFail
 	});
 
 	function homepageLoadSuccess(userdata, status, xhr) {
+		console.log(userdata);
 		$("#analyticsContainer").html("");
 
 		let $content = $("#analyticsContainer");
@@ -76,15 +77,15 @@ $(document).ready(function () {
 								</div>
 							</div>
 							<p class="analyticsBoxHour">Заработок в час</p>
-							<div class="analyticsBoxTable">
-								<div class="analyticsBoxTableRow">
+							<div class="analyticsBoxTable" style="height:30px;">
+								<!--<div class="analyticsBoxTableRow">
 									<p class="value">до ${userdata[i].economy_price} ₽</p>
 									<p>Эконом</p>
 								</div>
 								<div class="analyticsBoxTableRow">
 									<p class="value">до ${userdata[i].comfort_price} ₽</p>
 									<p>Комфорт</p>
-								</div>
+								</div>-->
 							</div>
 							<hr>
 							<p class="analyticsBoxText">${userdata[i].name}</p>

@@ -45,7 +45,7 @@ $(document).ready(function() {
 				url: API_CONTROLLERS.SIGN_UP,
 				type: 'POST',
 				dataType: 'json',
-				data: { sendPhone : { phonenumber : $phonenumber.val() } },
+				data: { sendPhone : { phonenumber : $phonenumber.val(), user_type: localStorage.getItem("user_type") } },
 				success: userNotExistenceCheckSuccess,
 				error: userNotExistenceCheckFail
 			});

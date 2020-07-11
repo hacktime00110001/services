@@ -21,7 +21,7 @@ $(document).ready(function () {
 				url: API_CONTROLLERS.SIGN_UP,
 				type: 'POST',
 				dataType: 'json',
-				data: { signUp : { phonenumber: localStorage.getItem("userPhone"), password: localStorage.getItem("password"), email: userdataEmail.email, name: userdataEmail.name } },
+				data: { signUp : { phonenumber: localStorage.getItem("userPhone"), password: localStorage.getItem("password"), email: userdataEmail.email, name: userdataEmail.name, user_type: localStorage.getItem("user_type") } },
 				success: signUpSuccess,
 				error: signUpFail
 			});
