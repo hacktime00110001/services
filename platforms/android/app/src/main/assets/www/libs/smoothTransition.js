@@ -7,4 +7,9 @@ $(document).ready(function () {
 			window.location = linkLocation;
 		});
 	});
+	
 });
+
+function smooth_transition(link) {
+	$("body").fadeOut(APP.PAGE_DELAY, function () { window.location = link; });
+}

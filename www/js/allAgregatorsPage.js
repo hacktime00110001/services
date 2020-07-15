@@ -75,8 +75,11 @@ $(document).ready(function() {
 									<img src="${userdata[i].logo_url}" alt="Агрегатор">
 								</div>
 							</div>
+							<!--
 							<p class="analyticsBoxHour">Заработок в час</p>
-							<div class="analyticsBoxTable">
+							-->
+							<div class="analyticsBoxTable" style="height:30px;">
+								<!--
 								<div class="analyticsBoxTableRow">
 									<p class="value">до ${userdata[i].economy_price} ₽</p>
 									<p>Эконом</p>
@@ -85,6 +88,7 @@ $(document).ready(function() {
 									<p class="value">до ${userdata[i].comfort_price} ₽</p>
 									<p>Комфорт</p>
 								</div>
+								-->
 							</div>
 							<hr>
 							<p class="analyticsBoxText">${userdata[i].name}</p>
