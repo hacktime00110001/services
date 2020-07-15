@@ -64,7 +64,7 @@ $(document).ready(function () {
 				$('#sendData').prop('disabled', false);
 			}); 
 		} else if($name.length < 2 || $name.length > 20 || $name.match("^([А-Я])+([а-я]+)") == null) {
-			modalAlert("Ошибка ввода данных!", 1, "Имя введено не коректно!", function () {
+			modalAlert("Ошибка ввода данных!", 1, "Имя введено некорректно!", function () {
 				$('#sendData').prop('disabled', false);
 			});
 		} else if($surname.length < 2 || $surname.length > 20 || $surname.match("^([А-Я])+([а-я]+)") == null) {
@@ -72,15 +72,15 @@ $(document).ready(function () {
 				$('#sendData').prop('disabled', false);
 			});
 		} else if($day < 1 || $day > 31) {
-			modalAlert("Ошибка ввода данных!", 1, "День рождения введён не коректно!", function () {
+			modalAlert("Ошибка ввода данных!", 1, "День рождения введён некорректно!", function () {
 				$('#sendData').prop('disabled', false);
 			});    
 		} else if($year < 1900 || $year > 2002) {
-			modalAlert("Ошибка ввода данных!", 1, "Год рождения введён не коректно!", function () {
+			modalAlert("Ошибка ввода данных!", 1, "Год рождения введён некорректно!", function () {
 				$('#sendData').prop('disabled', false);
 			});    
 		} else if($driveExp < 1 || $driveExp > 70) {
-			modalAlert("Ошибка ввода данных!", 1, "Стаж вождения введён не коректно!", function () {
+			modalAlert("Ошибка ввода данных!", 1, "Стаж вождения введён некорректно!", function () {
 				$('#sendData').prop('disabled', false);
 			});    
 		} else {
